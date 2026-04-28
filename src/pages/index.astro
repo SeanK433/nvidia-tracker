@@ -1,0 +1,28 @@
+---
+// src/pages/index.astro
+import { loadRelationships } from '~/lib/data';
+
+const relationships = loadRelationships();
+const activeCount = relationships.filter((r) => r.status === 'active').length;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Nvidia Ecosystem Tracker</title>
+    <style>
+      body { font-family: Georgia, serif; background: #f3ede0; color: #1a1612; margin: 0; padding: 4rem 2rem; }
+      .wrap { max-width: 640px; margin: 0 auto; text-align: center; }
+      h1 { font-style: italic; font-weight: 400; font-size: 2rem; margin-bottom: 0.5rem; }
+      p { color: #6b5d45; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Nvidia Ecosystem</h1>
+      <p>{activeCount} active partnerships tracked.</p>
+      <p style="margin-top: 2rem; font-size: 0.9rem;">Dashboard under construction. Plan B: full graph view.</p>
+    </div>
+  </body>
+</html>
