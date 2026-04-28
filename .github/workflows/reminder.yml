@@ -1,0 +1,26 @@
+# .github/workflows/reminder.yml
+name: Sunday reminder
+on:
+  schedule:
+    - cron: '0 14 * * 0'  # 9am ET Sunday (14:00 UTC during DST)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 200  # need history for parseExtractionDate
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run remind
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
