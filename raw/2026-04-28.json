@@ -1,0 +1,109 @@
+{
+  "fetched_at": "2026-04-28T20:15:13.610Z",
+  "articles": [
+    {
+      "id": "73135c411afd3a66aefc6986467ba445d617d4f8e4eed3069237298f26592d2d",
+      "url": "https://blogs.nvidia.com/blog/nemotron-3-nano-omni-multimodal-ai-agents/",
+      "title": "NVIDIA Launches Nemotron 3 Nano Omni Model, Unifying Vision, Audio and Language for up to 9x More Efficient AI Agents",
+      "published_at": "2026-04-28",
+      "source": "nvidia-blog",
+      "body_text": "AI agent systems today juggle separate models for vision, speech and language — losing time and context as they pass data from one model to the other. Unveiled today, NVIDIA Nemotron 3 Nano Omni is an open multimodal model that brings these capabilities together into one system, enabling agents to deliver faster, smarter responses with […]"
+    },
+    {
+      "id": "3353ffe346da4c47c5acb244cc00a51b49adbcf5091e654e954710e9a9e5e52a",
+      "url": "https://blogs.nvidia.com/blog/openai-codex-gpt-5-5-ai-agents/",
+      "title": "OpenAI’s New GPT-5.5 Powers Codex on NVIDIA Infrastructure — and NVIDIA Is Already Putting It to Work",
+      "published_at": "2026-04-23",
+      "source": "nvidia-blog",
+      "body_text": "AI agents have revolutionized developer workflows, and their next frontier is knowledge work: processing information, solving complex problems, coming up with new ideas and driving innovation. Codex, OpenAI’s agentic coding application, is enabling this new frontier. It’s now powered by GPT-5.5, OpenAI’s latest frontier model, which runs on NVIDIA GB200 NVL72 rack-scale systems. Over 10,000 […]"
+    },
+    {
+      "id": "3813376dc4ebd81fe800fb2ade2945b4dca9e1a846ee4f7e724011f4a74eeced",
+      "url": "https://blogs.nvidia.com/blog/earth-day-2026-ai-accelerated-computing/",
+      "title": "From Rainforests to Recycling Plants: 5 Ways NVIDIA AI Is Protecting the Planet",
+      "published_at": "2026-04-22",
+      "source": "nvidia-blog",
+      "body_text": "Across climate, conservation, disaster monitoring and recycling, NVIDIA AI is enabling applications protecting the planet."
+    },
+    {
+      "id": "faa79109fd5ff52c5f185134d7c2602150b82e6492f48f4427d180631ebc40d2",
+      "url": "https://blogs.nvidia.com/blog/google-cloud-agentic-physical-ai-factories/",
+      "title": "NVIDIA and Google Cloud Collaborate to Advance Agentic and Physical AI",
+      "published_at": "2026-04-22",
+      "source": "nvidia-blog",
+      "body_text": "NVIDIA and Google Cloud have collaborated for more than a decade, co‑engineering a full‑stack AI platform that spans every technology layer — from performance‑optimized libraries and frameworks to enterprise‑grade cloud services. This foundation enables developers, startups and enterprises to push agentic and physical AI out of the lab and into production — from agents that […]"
+    },
+    {
+      "id": "393c46f43550e8f959c2d3604c47e84929286127270df7307c1c2722133f9188",
+      "url": "https://blogs.nvidia.com/blog/adobe-ai-agents-nvidia-wpp/",
+      "title": "Autonomous AI at Scale: Adobe Agents Unlock Breakthrough Creative Intelligence With NVIDIA and WPP",
+      "published_at": "2026-04-20",
+      "source": "nvidia-blog",
+      "body_text": "AI agents are transforming how work gets done across all industries, accelerating everything from content creation to decision-making. NVIDIA’s expanded strategic collaborations with Adobe and WPP are bringing agentic AI to the center of enterprise marketing operations across creative production and customer experience orchestration. As demand for personalized customer experiences surges, brands require intelligent systems […]"
+    },
+    {
+      "id": "a7a52cd218b953582d4ed57fe4b4b16df624cee054c5f3d0edf3e0d11128b8b1",
+      "url": "https://blogs.nvidia.com/blog/ai-manufacturing-hannover-messe/",
+      "title": "NVIDIA and Partners Showcase the Future of AI-Driven Manufacturing at Hannover Messe 2026",
+      "published_at": "2026-04-20",
+      "source": "nvidia-blog",
+      "body_text": "Manufacturing is at an inflection point. Across every major industrial economy, the pressure to do more with less — due to faster design cycles, leaner operations and strain on skilled labor pools — is accelerating the shift to AI-driven production. The question is no longer whether to adopt AI, but how fast and at what […]"
+    },
+    {
+      "id": "548a1fd0b59505461ccc5aa5ced6e4a1e37d2b3bec3b9c9d7b8b3303d4ea259c",
+      "url": "https://blogs.nvidia.com/blog/rtx-ai-garage-nab-adobe-premiere-color-mode/",
+      "title": "New Adobe Premiere Color Grading Mode Accelerated on NVIDIA GPUs",
+      "published_at": "2026-04-15",
+      "source": "nvidia-blog",
+      "body_text": "The NAB Show 2026 trade show, running April 18-22 in Las Vegas, is set to showcase a wave of new features and optimizations for top video editing applications. Bringing together over 60,000 content professionals from across the broadcast and media and entertainment industries, the event highlights how video editors, livestreamers and professional creators are exploring […]"
+    },
+    {
+      "id": "28c48132eff9a51defaa6c46a107adcc06b61da3464d48d67632ccc6186e63df",
+      "url": "https://blogs.nvidia.com/blog/national-robotics-week-2026/",
+      "title": "National Robotics Week — Latest Physical AI Research, Breakthroughs and Resources",
+      "published_at": "2026-04-10",
+      "source": "nvidia-blog",
+      "body_text": "This National Robotics Week, NVIDIA is highlighting the breakthroughs that are bringing AI into the physical world — as well as the growing wave of robots transforming industries, from agricultural and manufacturing to energy and beyond. Advancements in robot learning, simulation and foundation models are accelerating development, enabling robots to move from training in virtual […]"
+    },
+    {
+      "id": "fdc2ef04e51b9f27893c5737c0339310c4d133b375f68d0073fee76a76c39918",
+      "url": "https://blogs.nvidia.com/blog/rtx-ai-garage-open-models-google-gemma-4/",
+      "title": "From RTX to Spark: NVIDIA Accelerates Gemma 4 for Local Agentic AI",
+      "published_at": "2026-04-02",
+      "source": "nvidia-blog",
+      "body_text": "Open models are driving a new wave of on-device AI, extending innovation beyond the cloud to everyday devices. As these models advance, their value increasingly depends on access to local, real-time context that can turn meaningful insights into action. Designed for this shift, Google’s latest additions to the Gemma 4 family introduce a class of small, fast and omni-capable models built for efficient local execution across a wide range […]"
+    },
+    {
+      "id": "dd00bb9c662bd88f9ef3a6bf7669fe00f6919a1a645067d16734878a42419399",
+      "url": "https://blogs.nvidia.com/blog/energy-efficiency-ai-factories-grid/",
+      "title": "Efficiency at Scale: NVIDIA, Energy Leaders Accelerating Power‑Flexible AI Factories to Fortify the Grid",
+      "published_at": "2026-03-31",
+      "source": "nvidia-blog",
+      "body_text": "CERAWeek — dubbed the Davos of energy — is where policymakers, producers, technologists and financiers gather to discuss how the world powers itself next. NVIDIA and Emerald AI unveiled at the conference last week a new way forward — treating AI factories not as static power loads but as flexible, intelligent grid assets. This collaboration […]"
+    },
+    {
+      "id": "a8fa90431b86eca2d5ea7b46b6c5ed3027eaa672d72c6ee34c0c251d2c3fba2f",
+      "url": "https://blogs.nvidia.com/blog/gtc-2026-virtual-worlds-physical-ai/",
+      "title": "Into the Omniverse: NVIDIA GTC Showcases Virtual Worlds Powering the Physical AI Era",
+      "published_at": "2026-03-26",
+      "source": "nvidia-blog",
+      "body_text": "Editor’s note: This post is part of Into the Omniverse, a series focused on how developers, 3D practitioners, and enterprises can transform their workflows using the latest advances in OpenUSD and NVIDIA Omniverse. NVIDIA GTC last week showcased a turning point in physical AI: Robots, vehicles and factories are scaling from single use cases and […]"
+    },
+    {
+      "id": "5fc69b54f988045c435cd9e2732a6e93bc2fcd712bfd9e763a56a470edda0a31",
+      "url": "https://semianalysis.com/2025/09/10/another-giant-leap-the-rubin-cpx-specialized-accelerator-rack/",
+      "title": "Another Giant Leap: The Rubin CPX Specialized Accelerator & Rack",
+      "published_at": "2025-09-10",
+      "source": "semianalysis",
+      "body_text": "Nvidia announced the Rubin CPX, a solution that is specifically designed to be optimized for the prefill phase, with the single-die Rubin CPX heavily emphasizing compute FLOPS over memory bandwidth. This is a game changer for inference, and its significance is surpassed only by the March 2024 announcement of the GB200 NVL72 Oberon rack-scale form […]"
+    },
+    {
+      "id": "2fb0c9ec0d95b02db670fed20f0ff11b9bcdc4f56cea93d840bbcc7925ead4bc",
+      "url": "https://semianalysis.com/2025/08/20/h100-vs-gb200-nvl72-training-benchmarks/",
+      "title": "H100 vs GB200 NVL72 Training Benchmarks – Power, TCO, and Reliability Analysis, Software Improvement Over Time",
+      "published_at": "2025-08-20",
+      "source": "semianalysis",
+      "body_text": "Frontier model training has pushed GPUs and AI systems to their absolute limits, making cost, efficiency, power, performance per TCO, and reliability central to the discussion on effective training. The Hopper vs Blackwell comparisons are not as simple as Nvidia would have you believe. In this report, we will start by present the results of […]"
+    }
+  ]
+}
