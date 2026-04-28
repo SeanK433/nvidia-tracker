@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { RelationshipSchema } from '../src/lib/schema';
+import { RelationshipSchema, PendingProposalSchema, ArticleSchema, RawFileSchema } from '../src/lib/schema';
 
 describe('RelationshipSchema', () => {
   it('accepts a valid relationship', () => {
@@ -41,5 +41,76 @@ describe('RelationshipSchema', () => {
       notes: ''
     };
     expect(() => RelationshipSchema.parse(invalid)).toThrow();
+  });
+});
+
+describe('PendingProposalSchema', () => {
+  it('accepts a relationship plus proposed_from_article', () => {
+    const valid = {
+      id: 'astera-labs',
+      partner: 'Astera Labs',
+      category: 'interconnect',
+      purpose: 'NVLink Fusion ecosystem partner',
+      evidence_quote: 'Astera Labs joins NVLink Fusion',
+      evidence_url: 'https://blogs.nvidia.com/x',
+      evidence_history: [],
+      first_announced: '2026-04-22',
+      last_confirmed: '2026-04-22',
+      status: 'active',
+      confidence: 'high',
+      notes: '',
+      proposed_from_article: 'https://blogs.nvidia.com/x'
+    };
+    expect(() => PendingProposalSchema.parse(valid)).not.toThrow();
+  });
+
+  it('rejects without proposed_from_article', () => {
+    const invalid = { id: 'x', partner: 'X' };
+    expect(() => PendingProposalSchema.parse(invalid)).toThrow();
+  });
+});
+
+describe('ArticleSchema', () => {
+  it('accepts a valid article', () => {
+    const valid = {
+      id: 'a'.repeat(64),
+      url: 'https://example.com/x',
+      title: 'Some headline',
+      published_at: '2026-04-27',
+      source: 'nvidia-newsroom',
+      body_text: 'The article body...'
+    };
+    expect(() => ArticleSchema.parse(valid)).not.toThrow();
+  });
+
+  it('rejects a short id (must be sha256 hex)', () => {
+    const invalid = {
+      id: 'short',
+      url: 'https://x.com',
+      title: 'x',
+      published_at: '2026-04-27',
+      source: 'x',
+      body_text: 'x'
+    };
+    expect(() => ArticleSchema.parse(invalid)).toThrow();
+  });
+});
+
+describe('RawFileSchema', () => {
+  it('accepts a valid raw file with multiple articles', () => {
+    const valid = {
+      fetched_at: '2026-04-28T11:00:00Z',
+      articles: [
+        {
+          id: 'a'.repeat(64),
+          url: 'https://x.com/1',
+          title: 'one',
+          published_at: '2026-04-27',
+          source: 'rss-x',
+          body_text: 'body 1'
+        }
+      ]
+    };
+    expect(() => RawFileSchema.parse(valid)).not.toThrow();
   });
 });
