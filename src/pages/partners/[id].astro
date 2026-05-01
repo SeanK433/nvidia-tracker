@@ -1,0 +1,143 @@
+---
+// src/pages/partners/[id].astro
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Logo from '~/components/Logo.astro';
+import EvidenceTimeline from '~/components/EvidenceTimeline.astro';
+import { loadRelationships } from '~/lib/data';
+import type { Relationship } from '~/lib/schema';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const rels = loadRelationships();
+  return rels.map((r) => ({
+    params: { id: r.id },
+    props: { rel: r }
+  }));
+}
+
+interface Props {
+  rel: Relationship;
+}
+
+const { rel } = Astro.props;
+---
+<BaseLayout title={rel.partner} description={rel.purpose} pathname="">
+  <article class="wrap-narrow" style="padding-top: var(--space-8); padding-bottom: var(--space-16);">
+    <a href="/" class="back-link">← back to graph</a>
+
+    <header class="partner-header">
+      <Logo id={rel.id} partner={rel.partner} size={96} />
+      <h1 class="partner-name">{rel.partner}</h1>
+      <div class="partner-meta">
+        <span class={`cat-badge cat-${rel.category}`}>{rel.category}</span>
+        <span class="separator">·</span>
+        <span class={`status-badge status-${rel.status}`}>{rel.status}</span>
+        <span class="separator">·</span>
+        <span class="confidence">{rel.confidence} confidence</span>
+      </div>
+    </header>
+
+    <section class="partner-purpose">
+      <p>{rel.purpose}</p>
+    </section>
+
+    {rel.notes && (
+      <section class="partner-notes">
+        <h2>Notes</h2>
+        <p>{rel.notes}</p>
+      </section>
+    )}
+
+    <section class="partner-evidence">
+      <h2>Evidence</h2>
+      {rel.evidence_history.length === 0 ? (
+        <p class="muted">
+          <a href={rel.evidence_url} rel="noopener noreferrer" target="_blank">
+            {new URL(rel.evidence_url).hostname}
+          </a>
+          <span class="muted"> — {rel.last_confirmed}</span>
+        </p>
+      ) : (
+        <EvidenceTimeline evidence_history={rel.evidence_history} />
+      )}
+    </section>
+
+    <footer class="partner-footer muted">
+      <span>First announced: {rel.first_announced}</span>
+      <span class="separator">·</span>
+      <span>Last confirmed: {rel.last_confirmed}</span>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+.back-link {
+  display: inline-block;
+  margin-bottom: var(--space-6);
+  font-size: var(--size-sm);
+  text-decoration: none;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+.back-link:hover { color: var(--ink); }
+
+.partner-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.partner-name {
+  font-size: var(--size-3xl);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.partner-meta {
+  font-size: var(--size-sm);
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.partner-meta .separator {
+  margin: 0 var(--space-2);
+  color: var(--ink-faint);
+}
+
+.cat-badge { font-style: italic; }
+.cat-silicon       { color: var(--cat-silicon); }
+.cat-cloud         { color: var(--cat-cloud); }
+.cat-vertical      { color: var(--cat-vertical); }
+.cat-software      { color: var(--cat-software); }
+.cat-interconnect  { color: var(--cat-interconnect); }
+.cat-investment    { color: var(--cat-investment); }
+
+.status-badge { font-style: italic; }
+.status-active   { color: var(--ink); }
+.status-dormant  { color: var(--ink-muted); }
+.status-ended    { color: var(--ink-muted); text-decoration: line-through; }
+
+.partner-purpose p {
+  font-size: var(--size-lg);
+  line-height: 1.6;
+  font-style: italic;
+  margin: var(--space-8) 0;
+}
+
+.partner-notes,
+.partner-evidence {
+  margin: var(--space-8) 0;
+}
+
+.partner-footer {
+  margin-top: var(--space-12);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--ink-faint);
+  font-size: var(--size-xs);
+  color: var(--ink-muted);
+}
+
+.partner-footer .separator {
+  margin: 0 var(--space-3);
+}
+</style>
