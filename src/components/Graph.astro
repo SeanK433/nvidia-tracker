@@ -54,6 +54,14 @@ const elementsJson = JSON.stringify(elements);
 </style>
 
 <script>
+// Mobile fallback: redirect to /list if the viewport is too narrow for the graph.
+// Use a coarse-pointer media query to also catch tablets/touch devices.
+const isMobile = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+if (isMobile) {
+  window.location.replace('/list');
+  // Still load cytoscape below for desktop-resize edge cases — the redirect happens before paint.
+}
+
 import cytoscape from 'cytoscape';
 // @ts-expect-error - cose-bilkent has no bundled types
 import coseBilkent from 'cytoscape-cose-bilkent';
