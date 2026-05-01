@@ -1,0 +1,67 @@
+---
+// src/components/FilterBar.astro
+// Floating filter pills that toggle category visibility on the graph.
+// Emits CustomEvents on the document; Graph.astro listens and applies CSS classes to nodes.
+---
+<div class="filter-bar" id="filter-bar">
+  <button class="filter-pill" data-category="all" data-active="true">all</button>
+  <button class="filter-pill" data-category="silicon">silicon</button>
+  <button class="filter-pill" data-category="interconnect">interconnect</button>
+  <button class="filter-pill" data-category="cloud">cloud</button>
+  <button class="filter-pill" data-category="software">software</button>
+  <button class="filter-pill" data-category="vertical">vertical</button>
+  <button class="filter-pill" data-category="investment">investment</button>
+</div>
+
+<style>
+.filter-bar {
+  position: absolute;
+  top: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-2);
+  z-index: 50;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 90vw;
+}
+
+.filter-pill {
+  background: var(--paper);
+  border: 1px solid var(--ink-faint);
+  color: var(--ink-muted);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 16px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--size-xs);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-pill[data-active="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.filter-pill:hover:not([data-active="true"]) {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+</style>
+
+<script>
+const pills = document.querySelectorAll<HTMLButtonElement>('#filter-bar .filter-pill');
+let activeCategory: string = 'all';
+
+pills.forEach((pill) => {
+  pill.addEventListener('click', () => {
+    pills.forEach((p) => p.dataset.active = 'false');
+    pill.dataset.active = 'true';
+    activeCategory = pill.dataset.category ?? 'all';
+    document.dispatchEvent(new CustomEvent('graph:filter', { detail: { category: activeCategory } }));
+  });
+});
+</script>
