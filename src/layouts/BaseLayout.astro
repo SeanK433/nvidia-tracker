@@ -24,11 +24,13 @@ function activeClass(path: string): Record<string, string> {
     {description && <meta name="description" content={description} />}
   </head>
   <body>
-    <nav class="site-nav">
-      <a href="/" {...activeClass('/')}>graph</a>
-      <a href="/list" {...activeClass('/list')}>list</a>
-      <a href="/about" {...activeClass('/about')}>about</a>
-    </nav>
+    {pathname !== '/' && (
+      <nav class="site-nav">
+        <a href="/" {...activeClass('/')}>graph</a>
+        <a href="/list" {...activeClass('/list')}>list</a>
+        <a href="/about" {...activeClass('/about')}>about</a>
+      </nav>
+    )}
     <slot />
   </body>
 </html>

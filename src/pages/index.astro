@@ -16,6 +16,10 @@ const lastUpdate = all.map((r) => r.last_confirmed).sort().at(-1) ?? '—';
       <p class="home-subtitle">{activeCount} active partnerships · last updated {lastUpdate}</p>
     </header>
 
+    <nav class="home-nav">
+      <a href="/list">list</a>
+      <a href="/about">about</a>
+    </nav>
     <FilterBar />
     <Graph />
     <HoverCard />
@@ -51,4 +55,22 @@ const lastUpdate = all.map((r) => r.last_confirmed).sort().at(-1) ?? '—';
   font-style: italic;
   margin: 0;
 }
+
+.home-nav {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-6);
+  z-index: 10;
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--size-xs);
+  font-style: italic;
+}
+
+.home-nav a {
+  text-decoration: none;
+  color: var(--ink-muted);
+}
+
+.home-nav a:hover { color: var(--ink); }
 </style>
