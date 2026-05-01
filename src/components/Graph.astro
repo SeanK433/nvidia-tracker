@@ -93,12 +93,12 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
           'color': '#f3ede0',
           'font-family': 'Georgia, serif',
           'font-style': 'italic',
-          'font-size': 13,
+          'font-size': 16,
           'font-weight': 700,
           'text-valign': 'center',
           'text-halign': 'center',
-          'width': 56,
-          'height': 56,
+          'width': 80,
+          'height': 80,
           'border-width': 0
         }
       },
@@ -118,8 +118,8 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
           'text-valign': 'bottom',
           'text-margin-y': 4,
           'text-opacity': 0,
-          'width': (ele: cytoscape.NodeSingular) => 16 + Math.min(ele.data('evidenceCount'), 10) * 1.5,
-          'height': (ele: cytoscape.NodeSingular) => 16 + Math.min(ele.data('evidenceCount'), 10) * 1.5,
+          'width': (ele: cytoscape.NodeSingular) => 32 + Math.min(ele.data('evidenceCount'), 10) * 3,
+          'height': (ele: cytoscape.NodeSingular) => 32 + Math.min(ele.data('evidenceCount'), 10) * 3,
           'border-width': 0
         }
       },
@@ -182,22 +182,73 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     window.location.href = `/partners/${id}`;
   });
 
+  // Category cluster positions: 6 evenly-spaced points around a circle.
+  // When a filter is active, matching nodes animate to a small ring at their category position.
+  const CATEGORY_ANGLE_DEG: Record<string, number> = {
+    silicon:      0,
+    interconnect: 60,
+    cloud:        120,
+    software:     180,
+    vertical:     240,
+    investment:   300
+  };
+
+  function clusterCenterFor(category: string) {
+    const w = container!.clientWidth;
+    const h = container!.clientHeight;
+    const cx = w / 2;
+    const cy_ = h / 2;
+    const distanceFromCenter = Math.min(w, h) * 0.32;
+    const angleRad = (CATEGORY_ANGLE_DEG[category] ?? 0) * Math.PI / 180;
+    return {
+      x: cx + Math.cos(angleRad) * distanceFromCenter,
+      y: cy_ + Math.sin(angleRad) * distanceFromCenter
+    };
+  }
+
   document.addEventListener('graph:filter', (e) => {
     const detail = (e as CustomEvent<{ category: string }>).detail;
     const cat = detail.category;
+
     if (cat === 'all') {
+      // Restore: clear filter dimming and re-run the force layout.
       cy.elements().removeClass('filtered-out');
-    } else {
-      cy.nodes('node[kind="partner"]').forEach((n) => {
-        if (n.data('category') === cat) {
-          n.removeClass('filtered-out');
-          n.connectedEdges().removeClass('filtered-out');
-        } else {
-          n.addClass('filtered-out');
-          n.connectedEdges().addClass('filtered-out');
-        }
-      });
+      cy.layout({
+        name: 'cose-bilkent',
+        // @ts-expect-error - cose-bilkent options aren't in the @types/cytoscape types
+        animate: 'end',
+        animationDuration: 600,
+        fit: true,
+        padding: 60,
+        nodeRepulsion: 8000
+      }).run();
+      return;
     }
+
+    // Apply filter dimming.
+    cy.nodes('node[kind="partner"]').forEach((n) => {
+      if (n.data('category') === cat) {
+        n.removeClass('filtered-out');
+        n.connectedEdges().removeClass('filtered-out');
+      } else {
+        n.addClass('filtered-out');
+        n.connectedEdges().addClass('filtered-out');
+      }
+    });
+
+    // Cluster matching nodes in a ring at the category position.
+    const matching = cy.nodes(`node[kind="partner"][category = "${cat}"]`);
+    const center = clusterCenterFor(cat);
+    const ringRadius = 70 + matching.length * 6;
+    matching.forEach((node, i) => {
+      const ringAngle = (i / Math.max(matching.length, 1)) * 2 * Math.PI;
+      node.animate({
+        position: {
+          x: center.x + Math.cos(ringAngle) * ringRadius,
+          y: center.y + Math.sin(ringAngle) * ringRadius
+        }
+      }, { duration: 600, easing: 'ease-in-out' });
+    });
   });
 
   // Ambient drift: gently nudge each partner node every ~2.5s along a small random vector.
