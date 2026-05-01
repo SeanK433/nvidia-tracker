@@ -8,12 +8,13 @@ const relationships = loadRelationships().filter((r) => r.status === 'active');
 
 const CATEGORIES = ['silicon', 'interconnect', 'cloud', 'software', 'vertical', 'investment'] as const;
 
-// Build the elements array.
-// Nodes: 1 NVIDIA + 1 anchor + 6 category labels + N partners
-// Edges: only one — NVIDIA → anchor
+// Build the elements:
+// - 1 NVIDIA center node
+// - 6 category-label nodes (one per category)
+// - 28 partner nodes (no kind change)
+// - 6 trunk edges (NVIDIA -> each category label)
 const elements = [
   { data: { id: 'nvidia', kind: 'center', label: 'NVIDIA' } },
-  { data: { id: 'group-anchor', kind: 'anchor' } },
   ...CATEGORIES.map((c) => ({
     data: { id: `label-${c}`, kind: 'category-label', label: c }
   })),
@@ -31,8 +32,9 @@ const elements = [
       lastConfirmed: r.last_confirmed
     }
   })),
-  // The single line: NVIDIA → group-anchor (the trunk line)
-  { data: { id: 'e-trunk', source: 'nvidia', target: 'group-anchor' } }
+  ...CATEGORIES.map((c) => ({
+    data: { id: `e-trunk-${c}`, source: 'nvidia', target: `label-${c}` }
+  }))
 ];
 
 const elementsJson = JSON.stringify(elements);
@@ -79,25 +81,28 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
   function computePositions(allElements: typeof elements, w: number, h: number) {
     const positions: Record<string, { x: number; y: number }> = {};
 
-    // Layout zones:
-    // - NVIDIA on the left, vertically centered
-    // - Group anchor at the left edge of the cluster block (line endpoint)
-    // - 6 cluster columns spread across the right ~70% of the canvas
-    const nvidiaX = w * 0.10;
-    const centerY = h * 0.50;
+    const cx = w / 2;
+    const cy_ = h / 2;
+    positions.nvidia = { x: cx, y: cy_ };
 
-    positions.nvidia = { x: nvidiaX, y: centerY };
+    // 3 column x-positions across the canvas
+    const COL_X = [w * 0.18, w * 0.50, w * 0.82];
 
-    const clusterBlockLeft = w * 0.30;
-    const clusterBlockRight = w * 0.95;
-    const clusterBlockWidth = clusterBlockRight - clusterBlockLeft;
-    const columnSpacing = clusterBlockWidth / (CATEGORIES.length - 1);
+    // Label y-offsets: 100px above/below NVIDIA
+    const LABEL_OFFSET = 100;
+    const LOGO_SPACING = 56;
+    const SUB_COL_SPACING = 60; // horizontal gap between sub-columns within one cluster
+    const MAX_ROWS = 4;
 
-    positions['group-anchor'] = { x: clusterBlockLeft - 20, y: centerY };
-
-    const labelY = h * 0.15;
-    const firstLogoY = h * 0.22;
-    const logoSpacing = 56;
+    // Mapping: which row (top/bottom) and column (0/1/2) each category lives in
+    const CLUSTER_LAYOUT: Record<string, { row: 'top' | 'bottom'; col: 0 | 1 | 2 }> = {
+      silicon:      { row: 'top',    col: 0 },
+      interconnect: { row: 'top',    col: 1 },
+      cloud:        { row: 'top',    col: 2 },
+      software:     { row: 'bottom', col: 0 },
+      vertical:     { row: 'bottom', col: 1 },
+      investment:   { row: 'bottom', col: 2 }
+    };
 
     // Group partners by category
     const partners = allElements.filter((e: { data?: { kind?: string } }) => e.data?.kind === 'partner');
@@ -107,14 +112,28 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
       (grouped[cat] ??= []).push(p);
     }
 
-    CATEGORIES.forEach((cat, colIdx) => {
-      const colX = clusterBlockLeft + colIdx * columnSpacing;
-      positions[`label-${cat}`] = { x: colX, y: labelY };
+    // Position each cluster
+    for (const [cat, layout] of Object.entries(CLUSTER_LAYOUT)) {
+      const clusterX = COL_X[layout.col];
+      const extendDir = layout.row === 'top' ? -1 : 1; // -1 = up, +1 = down
+      const labelY = cy_ + extendDir * LABEL_OFFSET;
+      positions[`label-${cat}`] = { x: clusterX, y: labelY };
+
+      // Place partners with multi-column overflow
       const items = grouped[cat] ?? [];
+      const numSubCols = Math.max(1, Math.ceil(items.length / MAX_ROWS));
+
       items.forEach((p: { data: { id: string } }, i: number) => {
-        positions[p.data.id] = { x: colX, y: firstLogoY + i * logoSpacing };
+        const subColIdx = Math.floor(i / MAX_ROWS);
+        const rowIdx = i % MAX_ROWS;
+        const subColXOffset = (subColIdx - (numSubCols - 1) / 2) * SUB_COL_SPACING;
+        const partnerY = labelY + extendDir * (rowIdx + 1) * LOGO_SPACING;
+        positions[p.data.id] = {
+          x: clusterX + subColXOffset,
+          y: partnerY
+        };
       });
-    });
+    }
 
     return positions;
   }
