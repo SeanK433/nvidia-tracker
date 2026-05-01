@@ -192,6 +192,24 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     }
   });
 
+  // Ambient drift: gently nudge each partner node every ~2.5s along a small random vector.
+  // Cytoscape recalculates edge curves automatically. Pauses on hover.
+  let driftPaused = false;
+  cy.on('mouseover', 'node', () => { driftPaused = true; });
+  cy.on('mouseout', 'node', () => { driftPaused = false; });
+
+  setInterval(() => {
+    if (driftPaused) return;
+    cy.nodes('node[kind="partner"]').forEach((node) => {
+      const pos = node.position();
+      const dx = (Math.random() - 0.5) * 1.2;
+      const dy = (Math.random() - 0.5) * 1.2;
+      node.animate({
+        position: { x: pos.x + dx, y: pos.y + dy }
+      }, { duration: 2400, easing: 'ease-in-out' });
+    });
+  }, 2500);
+
   (window as unknown as { cy?: cytoscape.Core }).cy = cy;
 }
 </script>
