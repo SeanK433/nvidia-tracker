@@ -231,31 +231,21 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
         }
       },
       {
-        // Partners WITH a sourced SVG logo: render the logo as a contained background image in a rectangular node.
+        // Partners WITH a logo: the node itself is invisible/transparent. The actual
+        // logo is rendered as an HTML <img> overlay positioned via the cy:viewport
+        // event handler at the bottom of this script.
         selector: 'node[kind="partner"][?hasLogo]',
         style: {
           'shape': 'rectangle',
-          'background-color': 'transparent',
-          'background-image': 'data(logo)',
-          'background-fit': 'contain',
-          'background-clip': 'node',
           'background-opacity': 0,
-          'background-image-containment': 'inside',
-          'label': 'data(partner)',
-          'color': '#1a1612',
-          'font-family': 'Georgia, serif',
-          'font-style': 'italic',
-          'font-size': 9,
-          'text-valign': 'bottom',
-          'text-margin-y': 4,
-          'text-opacity': 0,
+          'border-width': 0,
+          'label': '',
           'width': (ele: cytoscape.NodeSingular) => {
             const baseHeight = 28 + Math.min(ele.data('evidenceCount'), 10) * 3;
             const aspect = ele.data('logoAspect') ?? 1.85;
             return Math.min(150, Math.max(40, baseHeight * aspect));
           },
-          'height': (ele: cytoscape.NodeSingular) => 28 + Math.min(ele.data('evidenceCount'), 10) * 3,
-          'border-width': 0
+          'height': (ele: cytoscape.NodeSingular) => 28 + Math.min(ele.data('evidenceCount'), 10) * 3
         }
       },
       {
@@ -378,6 +368,71 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
       }, { duration: 2400, easing: 'ease-in-out' });
     });
   }, 2500);
+
+  // ============================================================
+  // HTML <img> overlay layer for partner logos.
+  // Cytoscape's background-fit:contain misbehaves on SVGs with
+  // intrinsic dimensions or preserveAspectRatio attrs (Oracle,
+  // CoreWeave, Adobe, Microsoft, Schneider all clipped). We render
+  // logos as absolutely-positioned <img> elements over the canvas
+  // and update positions on every Cytoscape viewport/render event.
+  // ============================================================
+  const overlayLayer = document.createElement('div');
+  overlayLayer.id = 'partner-logo-overlays';
+  overlayLayer.style.cssText = [
+    'position: absolute',
+    'inset: 0',
+    'pointer-events: none',
+    'overflow: hidden',
+    'z-index: 5'
+  ].join(';');
+  container.appendChild(overlayLayer);
+
+  const overlayElements: Record<string, HTMLImageElement> = {};
+
+  // Build one <img> per partner-with-logo. They're hidden (display:none) until first position.
+  cy.nodes('node[kind="partner"][?hasLogo]').forEach((node) => {
+    const img = document.createElement('img');
+    img.src = node.data('logo');
+    img.alt = node.data('partner');
+    img.style.cssText = [
+      'position: absolute',
+      'object-fit: contain',
+      'object-position: center',
+      'pointer-events: none',
+      'transition: opacity 0.15s'
+    ].join(';');
+    img.dataset.partner = node.data('partner');
+    overlayLayer.appendChild(img);
+    overlayElements[node.id()] = img;
+  });
+
+  function updateOverlayPositions() {
+    const zoom = cy.zoom();
+    cy.nodes('node[kind="partner"][?hasLogo]').forEach((node) => {
+      const img = overlayElements[node.id()];
+      if (!img) return;
+      const pos = node.renderedPosition();
+      const w = node.width() * zoom;
+      const h = node.height() * zoom;
+      img.style.left = (pos.x - w / 2) + 'px';
+      img.style.top = (pos.y - h / 2) + 'px';
+      img.style.width = w + 'px';
+      img.style.height = h + 'px';
+      // Sync filter-out dimming
+      img.style.opacity = node.hasClass('filtered-out') ? '0.06' : '1';
+    });
+  }
+
+  // Initial paint
+  updateOverlayPositions();
+  // Re-render on any change that affects node positions or visibility
+  cy.on('render viewport pan zoom position', updateOverlayPositions);
+  // Also refresh when filter-out classes change (custom listener since class events aren't standard)
+  document.addEventListener('graph:filter', () => {
+    // Run on next tick after the existing filter listener runs
+    setTimeout(updateOverlayPositions, 0);
+  });
 
   (window as unknown as { cy?: cytoscape.Core }).cy = cy;
 }
