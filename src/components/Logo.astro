@@ -1,0 +1,50 @@
+---
+// src/components/Logo.astro
+// Renders a transparent partner SVG logo from public/logos/[id].svg.
+// Falls back to italic serif text in matching ink color when no logo file exists.
+
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+interface Props {
+  id: string;
+  partner: string;
+  size?: number;       // pixel height; defaults to 40
+  className?: string;
+}
+
+const { id, partner, size = 40, className = '' } = Astro.props;
+
+// Check at build time whether a logo file exists for this id.
+// (This runs at build time only; safe for static output.)
+const logoPath = resolve(process.cwd(), 'public', 'logos', `${id}.svg`);
+const hasLogo = existsSync(logoPath);
+---
+{hasLogo ? (
+  <img
+    src={`/logos/${id}.svg`}
+    alt={partner}
+    class={`partner-logo ${className}`}
+    style={`height: ${size}px; width: auto; max-width: ${size * 4}px; object-fit: contain;`}
+    loading="lazy"
+  />
+) : (
+  <span
+    class={`partner-fallback ${className}`}
+    style={`font-family: Georgia, serif; font-style: italic; font-size: ${Math.round(size * 0.5)}px; color: var(--ink);`}
+  >
+    {partner}
+  </span>
+)}
+
+<style>
+.partner-logo {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.partner-fallback {
+  display: inline-block;
+  vertical-align: middle;
+}
+</style>
