@@ -46,7 +46,7 @@ const elementsJson = JSON.stringify(elements);
 <style>
 .graph-container {
   width: 100%;
-  height: calc(100vh - 80px);
+  height: 100vh;
   min-height: 480px;
   position: relative;
   background: transparent;
@@ -78,10 +78,70 @@ const hoverPurpose = document.getElementById('hover-card-purpose');
 if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpose) {
   const elements = JSON.parse(container.dataset.elements ?? '[]');
 
+  // Category cluster geometry: 6 hubs evenly spaced around the center.
+  const CATEGORY_ANGLE_DEG: Record<string, number> = {
+    silicon:      0,
+    interconnect: 60,
+    cloud:        120,
+    software:     180,
+    vertical:     240,
+    investment:   300
+  };
+
+  function computePositions(allElements: typeof elements, w: number, h: number) {
+    const cx = w / 2;
+    const cy_ = h / 2;
+    const distanceFromCenter = Math.min(w, h) * 0.40;
+    const positions: Record<string, { x: number; y: number }> = { nvidia: { x: cx, y: cy_ } };
+
+    // Group partners by category
+    const partners = allElements.filter((e: { data?: { kind?: string } }) => e.data?.kind === 'partner');
+    const grouped: Record<string, typeof partners> = {};
+    for (const p of partners) {
+      const cat = p.data.category;
+      (grouped[cat] ??= []).push(p);
+    }
+
+    // For each category, place its members in a ring at the cluster center.
+    for (const [cat, items] of Object.entries(grouped)) {
+      const angleDeg = CATEGORY_ANGLE_DEG[cat] ?? 0;
+      const angleRad = angleDeg * Math.PI / 180;
+      const clusterX = cx + Math.cos(angleRad) * distanceFromCenter;
+      const clusterY = cy_ + Math.sin(angleRad) * distanceFromCenter;
+      const ringRadius = 60 + items.length * 9;
+
+      items.forEach((p: { data: { id: string } }, i: number) => {
+        // Distribute around the ring with small jitter for organic feel
+        const baseAngle = (i / Math.max(items.length, 1)) * 2 * Math.PI;
+        const jitterAngle = (Math.random() - 0.5) * 0.4;
+        const ringAngle = baseAngle + jitterAngle;
+        const jitterR = (Math.random() - 0.5) * 25;
+        const r = ringRadius + jitterR;
+        positions[p.data.id] = {
+          x: clusterX + Math.cos(ringAngle) * r,
+          y: clusterY + Math.sin(ringAngle) * r
+        };
+      });
+    }
+    return positions;
+  }
+
+  const w = container.clientWidth;
+  const h = container.clientHeight;
+  const positions = computePositions(elements, w, h);
+
+  // Inject positions into elements
+  const positionedElements = elements.map((e: { data?: { id?: string } }) => {
+    if (e.data?.id && positions[e.data.id]) {
+      return { ...e, position: positions[e.data.id] };
+    }
+    return e;
+  });
+
   const cy = cytoscape({
     container,
-    elements,
-    layout: { name: 'cose-bilkent', animate: false, fit: true, padding: 60, nodeRepulsion: 8000 },
+    elements: positionedElements,
+    layout: { name: 'preset' },
     minZoom: 0.4,
     maxZoom: 2.5,
     style: [
@@ -182,50 +242,13 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     window.location.href = `/partners/${id}`;
   });
 
-  // Category cluster positions: 6 evenly-spaced points around a circle.
-  // When a filter is active, matching nodes animate to a small ring at their category position.
-  const CATEGORY_ANGLE_DEG: Record<string, number> = {
-    silicon:      0,
-    interconnect: 60,
-    cloud:        120,
-    software:     180,
-    vertical:     240,
-    investment:   300
-  };
-
-  function clusterCenterFor(category: string) {
-    const w = container!.clientWidth;
-    const h = container!.clientHeight;
-    const cx = w / 2;
-    const cy_ = h / 2;
-    const distanceFromCenter = Math.min(w, h) * 0.32;
-    const angleRad = (CATEGORY_ANGLE_DEG[category] ?? 0) * Math.PI / 180;
-    return {
-      x: cx + Math.cos(angleRad) * distanceFromCenter,
-      y: cy_ + Math.sin(angleRad) * distanceFromCenter
-    };
-  }
-
   document.addEventListener('graph:filter', (e) => {
     const detail = (e as CustomEvent<{ category: string }>).detail;
     const cat = detail.category;
-
     if (cat === 'all') {
-      // Restore: clear filter dimming and re-run the force layout.
       cy.elements().removeClass('filtered-out');
-      cy.layout({
-        name: 'cose-bilkent',
-        // @ts-expect-error - cose-bilkent options aren't in the @types/cytoscape types
-        animate: 'end',
-        animationDuration: 600,
-        fit: true,
-        padding: 60,
-        nodeRepulsion: 8000
-      }).run();
       return;
     }
-
-    // Apply filter dimming.
     cy.nodes('node[kind="partner"]').forEach((n) => {
       if (n.data('category') === cat) {
         n.removeClass('filtered-out');
@@ -235,36 +258,31 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
         n.connectedEdges().addClass('filtered-out');
       }
     });
-
-    // Cluster matching nodes in a ring at the category position.
-    const matching = cy.nodes(`node[kind="partner"][category = "${cat}"]`);
-    const center = clusterCenterFor(cat);
-    const ringRadius = 70 + matching.length * 6;
-    matching.forEach((node, i) => {
-      const ringAngle = (i / Math.max(matching.length, 1)) * 2 * Math.PI;
-      node.animate({
-        position: {
-          x: center.x + Math.cos(ringAngle) * ringRadius,
-          y: center.y + Math.sin(ringAngle) * ringRadius
-        }
-      }, { duration: 600, easing: 'ease-in-out' });
-    });
   });
 
-  // Ambient drift: gently nudge each partner node every ~2.5s along a small random vector.
-  // Cytoscape recalculates edge curves automatically. Pauses on hover.
+  // Ambient drift: each partner node oscillates by ±6px around its initial anchor position.
+  // Anchored so the cluster shape is preserved no matter how long the page sits idle.
   let driftPaused = false;
   cy.on('mouseover', 'node', () => { driftPaused = true; });
   cy.on('mouseout', 'node', () => { driftPaused = false; });
 
+  const driftAnchors: Record<string, { x: number; y: number }> = {};
+  cy.nodes('node[kind="partner"]').forEach((n) => {
+    const id = n.id();
+    const pos = n.position();
+    driftAnchors[id] = { x: pos.x, y: pos.y };
+  });
+
   setInterval(() => {
     if (driftPaused) return;
-    cy.nodes('node[kind="partner"]').forEach((node) => {
-      const pos = node.position();
-      const dx = (Math.random() - 0.5) * 1.2;
-      const dy = (Math.random() - 0.5) * 1.2;
-      node.animate({
-        position: { x: pos.x + dx, y: pos.y + dy }
+    cy.nodes('node[kind="partner"]').forEach((n) => {
+      const id = n.id();
+      const anchor = driftAnchors[id];
+      if (!anchor) return;
+      const offsetX = (Math.random() - 0.5) * 6;
+      const offsetY = (Math.random() - 0.5) * 6;
+      n.animate({
+        position: { x: anchor.x + offsetX, y: anchor.y + offsetY }
       }, { duration: 2400, easing: 'ease-in-out' });
     });
   }, 2500);
