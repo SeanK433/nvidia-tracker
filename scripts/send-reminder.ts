@@ -59,13 +59,13 @@ async function main() {
   const pending = loadPending().length;
 
   const body = buildEmailBody(days, newCount, pending);
-  const subject = `NV Tracker — ${newCount} articles ready for review`;
+  const subject = `NVIDIA Tracker — ${newCount} articles ready for review`;
 
   console.log('Email body:\n' + body);
 
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
-    from: 'NV Tracker <onboarding@resend.dev>',
+    from: 'NVIDIA Tracker <onboarding@resend.dev>',
     to,
     subject,
     text: body

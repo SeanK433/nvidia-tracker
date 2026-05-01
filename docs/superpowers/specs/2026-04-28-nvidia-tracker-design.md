@@ -389,7 +389,7 @@ Plain editorial prose. Sections:
 3. Counts current entries in `data/pending.json`.
 4. Renders short email body via plain string template:
    ```
-   Subject: NV Tracker — N articles ready for review
+   Subject: NVIDIA Tracker — N articles ready for review
 
    It's been D days since your last extraction.
    New articles: N
