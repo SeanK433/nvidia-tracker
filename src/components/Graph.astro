@@ -38,7 +38,11 @@ const CATEGORIES = ['silicon', 'interconnect', 'cloud', 'software', 'vertical', 
 const elements = [
   { data: { id: 'nvidia', kind: 'center', label: 'NVIDIA', logo: '/logos/nvidia.svg' } },
   ...CATEGORIES.map((c) => ({
-    data: { id: `label-${c}`, kind: 'category-label', label: c }
+    data: {
+      id: `label-${c}`,
+      kind: 'category-label',
+      label: c.charAt(0).toUpperCase() + c.slice(1)
+    }
   })),
   ...relationships.map((r) => ({
     data: {
@@ -114,8 +118,8 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
 
     // Label y-offsets: 100px above/below NVIDIA
     const LABEL_OFFSET = 100;
-    const LOGO_SPACING = 56;
-    const SUB_COL_SPACING = 170; // horizontal gap between sub-columns within one cluster
+    const LOGO_SPACING = 36;
+    const SUB_COL_SPACING = 120; // horizontal gap between sub-columns within one cluster
     const MAX_ROWS = 4;
 
     // Mapping: which row (top/bottom) and column (0/1/2) each category lives in
@@ -192,7 +196,16 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
           'background-opacity': 1,
           'background-image-opacity': 1,
           'background-image-containment': 'inside',
-          'label': '',
+          'background-position-y': '40%',
+          'label': 'NVIDIA',
+          'color': 'rgb(118,185,0)',
+          'font-family': 'Georgia, serif',
+          'font-style': 'italic',
+          'font-size': 14,
+          'font-weight': 400,
+          'text-valign': 'bottom',
+          'text-halign': 'center',
+          'text-margin-y': -8,
           'width': 130,
           'height': 130,
           'border-width': 0
@@ -220,7 +233,7 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
           'color': '#1a1612',
           'font-family': 'Georgia, serif',
           'font-style': 'italic',
-          'font-size': 14,
+          'font-size': 12,
           'font-weight': 400,
           'text-valign': 'center',
           'text-halign': 'center',
@@ -241,11 +254,11 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
           'border-width': 0,
           'label': '',
           'width': (ele: cytoscape.NodeSingular) => {
-            const baseHeight = 28 + Math.min(ele.data('evidenceCount'), 10) * 3;
+            const baseHeight = 18 + Math.min(ele.data('evidenceCount'), 10) * 2;
             const aspect = ele.data('logoAspect') ?? 1.85;
-            return Math.min(150, Math.max(40, baseHeight * aspect));
+            return Math.min(100, Math.max(28, baseHeight * aspect));
           },
-          'height': (ele: cytoscape.NodeSingular) => 28 + Math.min(ele.data('evidenceCount'), 10) * 3
+          'height': (ele: cytoscape.NodeSingular) => 18 + Math.min(ele.data('evidenceCount'), 10) * 2
         }
       },
       {
@@ -259,7 +272,7 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
           'color': '#1a1612',
           'font-family': 'Georgia, serif',
           'font-style': 'italic',
-          'font-size': 13,
+          'font-size': 10,
           'font-weight': 500,
           'text-valign': 'center',
           'text-halign': 'center',

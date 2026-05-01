@@ -59,10 +59,7 @@ html, body {
 }
 
 body {
-  background:
-    radial-gradient(circle at 20% 30%, var(--paper-warm), transparent 45%),
-    radial-gradient(circle at 80% 70%, var(--paper-warm), transparent 50%),
-    var(--paper);
+  background: var(--paper);
   min-height: 100vh;
 }
 
