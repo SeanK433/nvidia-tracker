@@ -6,16 +6,17 @@ import { loadRelationships } from '~/lib/data';
 
 const relationships = loadRelationships().filter((r) => r.status === 'active');
 
-// Build the elements array Cytoscape consumes.
-// One central NVIDIA node + one node per partner + one edge per partner.
+const CATEGORIES = ['silicon', 'interconnect', 'cloud', 'software', 'vertical', 'investment'] as const;
+
+// Build the elements array.
+// Nodes: 1 NVIDIA + 1 anchor + 6 category labels + N partners
+// Edges: only one — NVIDIA → anchor
 const elements = [
-  {
-    data: {
-      id: 'nvidia',
-      label: 'NVIDIA',
-      kind: 'center'
-    }
-  },
+  { data: { id: 'nvidia', kind: 'center', label: 'NVIDIA' } },
+  { data: { id: 'group-anchor', kind: 'anchor' } },
+  ...CATEGORIES.map((c) => ({
+    data: { id: `label-${c}`, kind: 'category-label', label: c }
+  })),
   ...relationships.map((r) => ({
     data: {
       id: r.id,
@@ -30,13 +31,8 @@ const elements = [
       lastConfirmed: r.last_confirmed
     }
   })),
-  ...relationships.map((r) => ({
-    data: {
-      id: `e-${r.id}`,
-      source: 'nvidia',
-      target: r.id
-    }
-  }))
+  // The single line: NVIDIA → group-anchor (the trunk line)
+  { data: { id: 'e-trunk', source: 'nvidia', target: 'group-anchor' } }
 ];
 
 const elementsJson = JSON.stringify(elements);
@@ -78,21 +74,30 @@ const hoverPurpose = document.getElementById('hover-card-purpose');
 if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpose) {
   const elements = JSON.parse(container.dataset.elements ?? '[]');
 
-  // Category cluster geometry: 6 hubs evenly spaced around the center.
-  const CATEGORY_ANGLE_DEG: Record<string, number> = {
-    silicon:      0,
-    interconnect: 60,
-    cloud:        120,
-    software:     180,
-    vertical:     240,
-    investment:   300
-  };
+  const CATEGORIES = ['silicon', 'interconnect', 'cloud', 'software', 'vertical', 'investment'] as const;
 
   function computePositions(allElements: typeof elements, w: number, h: number) {
-    const cx = w / 2;
-    const cy_ = h / 2;
-    const distanceFromCenter = Math.min(w, h) * 0.40;
-    const positions: Record<string, { x: number; y: number }> = { nvidia: { x: cx, y: cy_ } };
+    const positions: Record<string, { x: number; y: number }> = {};
+
+    // Layout zones:
+    // - NVIDIA on the left, vertically centered
+    // - Group anchor at the left edge of the cluster block (line endpoint)
+    // - 6 cluster columns spread across the right ~70% of the canvas
+    const nvidiaX = w * 0.10;
+    const centerY = h * 0.50;
+
+    positions.nvidia = { x: nvidiaX, y: centerY };
+
+    const clusterBlockLeft = w * 0.30;
+    const clusterBlockRight = w * 0.95;
+    const clusterBlockWidth = clusterBlockRight - clusterBlockLeft;
+    const columnSpacing = clusterBlockWidth / (CATEGORIES.length - 1);
+
+    positions['group-anchor'] = { x: clusterBlockLeft - 20, y: centerY };
+
+    const labelY = h * 0.15;
+    const firstLogoY = h * 0.22;
+    const logoSpacing = 56;
 
     // Group partners by category
     const partners = allElements.filter((e: { data?: { kind?: string } }) => e.data?.kind === 'partner');
@@ -102,27 +107,15 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
       (grouped[cat] ??= []).push(p);
     }
 
-    // For each category, place its members in a ring at the cluster center.
-    for (const [cat, items] of Object.entries(grouped)) {
-      const angleDeg = CATEGORY_ANGLE_DEG[cat] ?? 0;
-      const angleRad = angleDeg * Math.PI / 180;
-      const clusterX = cx + Math.cos(angleRad) * distanceFromCenter;
-      const clusterY = cy_ + Math.sin(angleRad) * distanceFromCenter;
-      const ringRadius = 60 + items.length * 9;
-
+    CATEGORIES.forEach((cat, colIdx) => {
+      const colX = clusterBlockLeft + colIdx * columnSpacing;
+      positions[`label-${cat}`] = { x: colX, y: labelY };
+      const items = grouped[cat] ?? [];
       items.forEach((p: { data: { id: string } }, i: number) => {
-        // Distribute around the ring with small jitter for organic feel
-        const baseAngle = (i / Math.max(items.length, 1)) * 2 * Math.PI;
-        const jitterAngle = (Math.random() - 0.5) * 0.4;
-        const ringAngle = baseAngle + jitterAngle;
-        const jitterR = (Math.random() - 0.5) * 25;
-        const r = ringRadius + jitterR;
-        positions[p.data.id] = {
-          x: clusterX + Math.cos(ringAngle) * r,
-          y: clusterY + Math.sin(ringAngle) * r
-        };
+        positions[p.data.id] = { x: colX, y: firstLogoY + i * logoSpacing };
       });
-    }
+    });
+
     return positions;
   }
 
@@ -163,6 +156,35 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
         }
       },
       {
+        selector: 'node[kind="anchor"]',
+        style: {
+          'width': 1,
+          'height': 1,
+          'background-opacity': 0,
+          'border-width': 0,
+          'label': '',
+          'events': 'no'
+        }
+      },
+      {
+        selector: 'node[kind="category-label"]',
+        style: {
+          'background-opacity': 0,
+          'border-width': 0,
+          'label': 'data(label)',
+          'color': '#1a1612',
+          'font-family': 'Georgia, serif',
+          'font-style': 'italic',
+          'font-size': 14,
+          'font-weight': 400,
+          'text-valign': 'center',
+          'text-halign': 'center',
+          'width': 1,
+          'height': 1,
+          'events': 'no'
+        }
+      },
+      {
         selector: 'node[kind="partner"]',
         style: {
           'background-color': 'transparent',
@@ -186,12 +208,10 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
       {
         selector: 'edge',
         style: {
-          'curve-style': 'unbundled-bezier',
-          'control-point-distances': [40],
-          'control-point-weights': [0.5],
+          'curve-style': 'straight',
           'line-color': '#1a1612',
-          'line-opacity': 0.42,
-          'width': 0.6,
+          'line-opacity': 0.7,
+          'width': 1.6,
           'target-arrow-shape': 'none',
           'source-arrow-shape': 'none'
         }
@@ -246,16 +266,14 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     const detail = (e as CustomEvent<{ category: string }>).detail;
     const cat = detail.category;
     if (cat === 'all') {
-      cy.elements().removeClass('filtered-out');
+      cy.nodes('node[kind="partner"]').removeClass('filtered-out');
       return;
     }
     cy.nodes('node[kind="partner"]').forEach((n) => {
       if (n.data('category') === cat) {
         n.removeClass('filtered-out');
-        n.connectedEdges().removeClass('filtered-out');
       } else {
         n.addClass('filtered-out');
-        n.connectedEdges().addClass('filtered-out');
       }
     });
   });
