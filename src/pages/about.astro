@@ -1,0 +1,67 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { loadRelationships } from '~/lib/data';
+
+const relationships = loadRelationships();
+const totalActive = relationships.filter((r) => r.status === 'active').length;
+const lastUpdate = relationships
+  .map((r) => r.last_confirmed)
+  .sort()
+  .at(-1) ?? '—';
+---
+<BaseLayout title="About" description="Methodology for the NVIDIA Tracker" pathname="/about">
+  <article class="wrap-narrow" style="padding-top: var(--space-12); padding-bottom: var(--space-16);">
+    <h1>About this tracker</h1>
+    <p class="subtitle">A living dataset of NVIDIA's public partnership ecosystem. Currently {totalActive} active partnerships, last updated {lastUpdate}.</p>
+
+    <h2>What this is</h2>
+    <p>This is a personal, editorial tracker of named, public partnerships between NVIDIA and other entities — covering silicon supply, networking fabric, cloud deployment, software collaboration, vertical-industry integration, and strategic investment with operational substance.</p>
+
+    <h2>What counts as a partnership</h2>
+    <p>A partnership is a <em>named, public, ongoing relationship</em> involving shared technology development, supply, deployment, integration, or strategic alignment. It must be:</p>
+    <ul>
+      <li><strong>Named publicly</strong> by NVIDIA, the partner, or both</li>
+      <li><strong>Ongoing or forward-looking</strong> — not a one-time transaction</li>
+      <li><strong>Substantive</strong> — has a stated purpose beyond marketing</li>
+    </ul>
+
+    <h2>What does NOT count</h2>
+    <ul>
+      <li>Customers buying GPUs (procurement ≠ partnership)</li>
+      <li>Resellers and distributors</li>
+      <li>Developers using CUDA</li>
+      <li>Conference sponsorships and event appearances</li>
+      <li>Rumored or unconfirmed deals</li>
+      <li>Pure investments without operational tie</li>
+      <li>Competitors framed as partners by press</li>
+    </ul>
+
+    <h2>The six categories</h2>
+    <p>Each entry has exactly one primary category:</p>
+    <ul>
+      <li><strong>silicon</strong> — fabrication, memory, packaging, assembly</li>
+      <li><strong>interconnect</strong> — NVLink, fabric partners</li>
+      <li><strong>cloud</strong> — named infrastructure deployment programs</li>
+      <li><strong>software</strong> — frameworks, models, platforms with co-engineering</li>
+      <li><strong>vertical</strong> — auto, robotics, healthcare, industrial, telecom, sovereign-AI</li>
+      <li><strong>investment</strong> — equity stakes with operational substance</li>
+    </ul>
+
+    <h2>Confidence rubric</h2>
+    <ul>
+      <li><strong>high</strong> — confirmed by NVIDIA's official channel AND by the partner</li>
+      <li><strong>medium</strong> — confirmed by one side only, or tier-1 trade press citing on-record sources</li>
+      <li><strong>low</strong> — reported but not officially confirmed; included only if widely treated as fact</li>
+    </ul>
+
+    <h2>Data sources</h2>
+    <p>Articles are collected daily from a curated list of public sources: NVIDIA's blog and newsroom, SemiAnalysis, IEEE Spectrum, AnandTech, and others. Partnerships are extracted weekly with human review.</p>
+
+    <h2>Corrections</h2>
+    <p>Spot something wrong? Email <a href="mailto:seanfkelley1@gmail.com">seanfkelley1@gmail.com</a>.</p>
+
+    <p class="muted" style="margin-top: var(--space-12); font-size: var(--size-xs);">
+      Source code: <a href="https://github.com/SeanK433/nvidia-tracker">github.com/SeanK433/nvidia-tracker</a>
+    </p>
+  </article>
+</BaseLayout>
