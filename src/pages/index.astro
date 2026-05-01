@@ -1,14 +1,54 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import Graph from '~/components/Graph.astro';
+import FilterBar from '~/components/FilterBar.astro';
+import HoverCard from '~/components/HoverCard.astro';
 import { loadRelationships } from '~/lib/data';
 
-const relationships = loadRelationships();
-const activeCount = relationships.filter((r) => r.status === 'active').length;
+const all = loadRelationships();
+const activeCount = all.filter((r) => r.status === 'active').length;
+const lastUpdate = all.map((r) => r.last_confirmed).sort().at(-1) ?? '—';
 ---
 <BaseLayout title="NVIDIA Tracker" pathname="/">
-  <div class="wrap-narrow center" style="padding-top: var(--space-12);">
-    <h1>NVIDIA Ecosystem</h1>
-    <p>{activeCount} active partnerships tracked.</p>
-    <p class="muted">Graph view in progress. <a href="/list">View as list</a>.</p>
+  <div class="home-frame">
+    <header class="home-header">
+      <h1 class="home-title">NVIDIA Ecosystem</h1>
+      <p class="home-subtitle">{activeCount} active partnerships · last updated {lastUpdate}</p>
+    </header>
+
+    <FilterBar />
+    <Graph />
+    <HoverCard />
   </div>
 </BaseLayout>
+
+<style>
+.home-frame {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+.home-header {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-6);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.home-title {
+  font-size: var(--size-xl);
+  font-style: italic;
+  font-weight: 400;
+  margin: 0;
+}
+
+.home-subtitle {
+  font-size: var(--size-xs);
+  color: var(--ink-muted);
+  font-style: italic;
+  margin: 0;
+}
+</style>
