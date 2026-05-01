@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "wrangler dev",
-    "deploy": "astro build && wrangler deploy",
+    "deploy": "astro build && node -e \"require('fs').writeFileSync('dist/.assetsignore', '_worker.js\\n')\" && wrangler deploy",
     "test": "vitest run",
     "test:watch": "vitest",
     "collect": "tsx scripts/collect.ts",
