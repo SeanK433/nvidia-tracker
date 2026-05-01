@@ -1,0 +1,131 @@
+---
+// src/components/Graph.astro
+// Renders a Cytoscape force-directed graph of NVIDIA partnerships.
+// Client-hydrated; SSR renders an empty container.
+import { loadRelationships } from '~/lib/data';
+
+const relationships = loadRelationships().filter((r) => r.status === 'active');
+
+// Build the elements array Cytoscape consumes.
+// One central NVIDIA node + one node per partner + one edge per partner.
+const elements = [
+  {
+    data: {
+      id: 'nvidia',
+      label: 'NVIDIA',
+      kind: 'center'
+    }
+  },
+  ...relationships.map((r) => ({
+    data: {
+      id: r.id,
+      label: r.partner,
+      kind: 'partner',
+      category: r.category,
+      confidence: r.confidence,
+      evidenceCount: Math.max(1, r.evidence_history.length),
+      logo: `/logos/${r.id}.svg`,
+      partner: r.partner,
+      purpose: r.purpose,
+      lastConfirmed: r.last_confirmed
+    }
+  })),
+  ...relationships.map((r) => ({
+    data: {
+      id: `e-${r.id}`,
+      source: 'nvidia',
+      target: r.id
+    }
+  }))
+];
+
+const elementsJson = JSON.stringify(elements);
+---
+<div id="graph-container" class="graph-container" data-elements={elementsJson}></div>
+
+<style>
+.graph-container {
+  width: 100%;
+  height: calc(100vh - 80px);
+  min-height: 480px;
+  position: relative;
+  background: transparent;
+}
+</style>
+
+<script>
+import cytoscape from 'cytoscape';
+// @ts-expect-error - cose-bilkent has no bundled types
+import coseBilkent from 'cytoscape-cose-bilkent';
+
+cytoscape.use(coseBilkent);
+
+const container = document.getElementById('graph-container');
+if (container) {
+  const elements = JSON.parse(container.dataset.elements ?? '[]');
+
+  const cy = cytoscape({
+    container,
+    elements,
+    layout: { name: 'cose-bilkent', animate: false, fit: true, padding: 60, nodeRepulsion: 8000 },
+    minZoom: 0.4,
+    maxZoom: 2.5,
+    style: [
+      {
+        selector: 'node[kind="center"]',
+        style: {
+          'background-color': '#1a1612',
+          'label': 'NVIDIA',
+          'color': '#f3ede0',
+          'font-family': 'Georgia, serif',
+          'font-style': 'italic',
+          'font-size': 13,
+          'font-weight': 700,
+          'text-valign': 'center',
+          'text-halign': 'center',
+          'width': 56,
+          'height': 56,
+          'border-width': 0
+        }
+      },
+      {
+        selector: 'node[kind="partner"]',
+        style: {
+          'background-color': 'transparent',
+          'background-image': 'data(logo)',
+          'background-fit': 'contain',
+          'background-clip': 'none',
+          'background-opacity': 0,
+          'label': 'data(partner)',
+          'color': '#1a1612',
+          'font-family': 'Georgia, serif',
+          'font-style': 'italic',
+          'font-size': 9,
+          'text-valign': 'bottom',
+          'text-margin-y': 4,
+          'text-opacity': 0,
+          'width': (ele: cytoscape.NodeSingular) => 16 + Math.min(ele.data('evidenceCount'), 10) * 1.5,
+          'height': (ele: cytoscape.NodeSingular) => 16 + Math.min(ele.data('evidenceCount'), 10) * 1.5,
+          'border-width': 0
+        }
+      },
+      {
+        selector: 'edge',
+        style: {
+          'curve-style': 'unbundled-bezier',
+          'control-point-distances': [40],
+          'control-point-weights': [0.5],
+          'line-color': '#1a1612',
+          'line-opacity': 0.42,
+          'width': 0.6,
+          'target-arrow-shape': 'none',
+          'source-arrow-shape': 'none'
+        }
+      }
+    ]
+  });
+
+  // Expose for debugging
+  (window as unknown as { cy?: cytoscape.Core }).cy = cy;
+}
+</script>

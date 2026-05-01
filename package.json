@@ -17,9 +17,12 @@
   "dependencies": {
     "@astrojs/cloudflare": "^11.0.0",
     "astro": "^4.16.0",
+    "cytoscape": "^3.30.0",
+    "cytoscape-cose-bilkent": "^4.1.0",
     "zod": "^3.23.0"
   },
   "devDependencies": {
+    "@types/cytoscape": "^3.21.0",
     "@types/node": "^20.14.0",
     "cheerio": "^1.0.0",
     "resend": "^3.5.0",
