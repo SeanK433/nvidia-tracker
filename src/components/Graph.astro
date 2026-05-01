@@ -2,7 +2,13 @@
 // src/components/Graph.astro
 // Renders a Cytoscape force-directed graph of NVIDIA partnerships.
 // Client-hydrated; SSR renders an empty container.
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { loadRelationships } from '~/lib/data';
+
+function partnerHasLogo(id: string): boolean {
+  return existsSync(resolve(process.cwd(), 'public', 'logos', `${id}.svg`));
+}
 
 const relationships = loadRelationships().filter((r) => r.status === 'active');
 
@@ -27,6 +33,7 @@ const elements = [
       confidence: r.confidence,
       evidenceCount: Math.max(1, r.evidence_history.length),
       logo: `/logos/${r.id}.svg`,
+      hasLogo: partnerHasLogo(r.id),  // NEW
       partner: r.partner,
       purpose: r.purpose,
       lastConfirmed: r.last_confirmed
@@ -91,7 +98,7 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     // Label y-offsets: 100px above/below NVIDIA
     const LABEL_OFFSET = 100;
     const LOGO_SPACING = 56;
-    const SUB_COL_SPACING = 60; // horizontal gap between sub-columns within one cluster
+    const SUB_COL_SPACING = 120; // horizontal gap between sub-columns within one cluster
     const MAX_ROWS = 4;
 
     // Mapping: which row (top/bottom) and column (0/1/2) each category lives in
@@ -204,13 +211,16 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
         }
       },
       {
-        selector: 'node[kind="partner"]',
+        // Partners WITH a sourced SVG logo: render the logo as a contained background image in a rectangular node.
+        selector: 'node[kind="partner"][?hasLogo]',
         style: {
+          'shape': 'rectangle',
           'background-color': 'transparent',
           'background-image': 'data(logo)',
           'background-fit': 'contain',
-          'background-clip': 'none',
+          'background-clip': 'node',
           'background-opacity': 0,
+          'background-image-containment': 'inside',
           'label': 'data(partner)',
           'color': '#1a1612',
           'font-family': 'Georgia, serif',
@@ -219,9 +229,30 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
           'text-valign': 'bottom',
           'text-margin-y': 4,
           'text-opacity': 0,
-          'width': (ele: cytoscape.NodeSingular) => 32 + Math.min(ele.data('evidenceCount'), 10) * 3,
+          'width': (ele: cytoscape.NodeSingular) => 60 + Math.min(ele.data('evidenceCount'), 10) * 5,
           'height': (ele: cytoscape.NodeSingular) => 32 + Math.min(ele.data('evidenceCount'), 10) * 3,
           'border-width': 0
+        }
+      },
+      {
+        // Partners WITHOUT a sourced SVG logo: render the partner name as italic serif text.
+        selector: 'node[kind="partner"][!hasLogo]',
+        style: {
+          'shape': 'rectangle',
+          'background-opacity': 0,
+          'border-width': 0,
+          'label': 'data(partner)',
+          'color': '#1a1612',
+          'font-family': 'Georgia, serif',
+          'font-style': 'italic',
+          'font-size': 13,
+          'font-weight': 500,
+          'text-valign': 'center',
+          'text-halign': 'center',
+          'text-opacity': 1,
+          'width': 'label',
+          'height': 'label',
+          'padding': '8px'
         }
       },
       {
