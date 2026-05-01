@@ -61,7 +61,13 @@ import coseBilkent from 'cytoscape-cose-bilkent';
 cytoscape.use(coseBilkent);
 
 const container = document.getElementById('graph-container');
-if (container) {
+const hoverCard = document.getElementById('hover-card');
+const hoverLogo = document.getElementById('hover-card-logo') as HTMLImageElement | null;
+const hoverName = document.getElementById('hover-card-name');
+const hoverMeta = document.getElementById('hover-card-meta');
+const hoverPurpose = document.getElementById('hover-card-purpose');
+
+if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpose) {
   const elements = JSON.parse(container.dataset.elements ?? '[]');
 
   const cy = cytoscape({
@@ -121,11 +127,49 @@ if (container) {
           'target-arrow-shape': 'none',
           'source-arrow-shape': 'none'
         }
+      },
+      {
+        selector: '.dimmed',
+        style: { 'opacity': 0.18 }
+      },
+      {
+        selector: '.highlighted',
+        style: { 'opacity': 1 }
       }
     ]
   });
 
-  // Expose for debugging
+  cy.on('mouseover', 'node[kind="partner"]', (evt) => {
+    const node = evt.target;
+    cy.elements().addClass('dimmed');
+    node.removeClass('dimmed').addClass('highlighted');
+    node.connectedEdges().removeClass('dimmed').addClass('highlighted');
+    cy.getElementById('nvidia').removeClass('dimmed').addClass('highlighted');
+
+    const data = node.data();
+    hoverLogo.src = data.logo;
+    hoverLogo.alt = data.partner;
+    hoverName.textContent = data.partner;
+    hoverMeta.textContent = `${data.category} · ${data.evidenceCount} confirmation${data.evidenceCount === 1 ? '' : 's'}`;
+    hoverPurpose.textContent = data.purpose;
+
+    const renderedPos = node.renderedPosition();
+    const containerRect = container.getBoundingClientRect();
+    hoverCard.style.left = `${containerRect.left + renderedPos.x + 30}px`;
+    hoverCard.style.top = `${containerRect.top + renderedPos.y - 20}px`;
+    hoverCard.dataset.visible = 'true';
+  });
+
+  cy.on('mouseout', 'node[kind="partner"]', () => {
+    cy.elements().removeClass('dimmed').removeClass('highlighted');
+    hoverCard.dataset.visible = 'false';
+  });
+
+  cy.on('tap', 'node[kind="partner"]', (evt) => {
+    const id = evt.target.data('id');
+    window.location.href = `/partners/${id}`;
+  });
+
   (window as unknown as { cy?: cytoscape.Core }).cy = cy;
 }
 </script>

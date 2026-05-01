@@ -1,0 +1,60 @@
+---
+// src/components/HoverCard.astro
+// Floating card shown when a graph node is hovered. Hidden by default;
+// the Graph component populates and positions it on mouseover.
+---
+<div id="hover-card" class="hover-card" aria-hidden="true">
+  <img class="hover-card-logo" id="hover-card-logo" alt="" />
+  <div class="hover-card-body">
+    <div class="hover-card-name" id="hover-card-name"></div>
+    <div class="hover-card-meta" id="hover-card-meta"></div>
+    <div class="hover-card-purpose" id="hover-card-purpose"></div>
+  </div>
+</div>
+
+<style>
+.hover-card {
+  position: absolute;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  padding: var(--space-3);
+  width: 240px;
+  box-shadow: 0 4px 12px rgba(26, 22, 18, 0.12);
+  font-size: var(--size-xs);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  z-index: 100;
+}
+
+.hover-card[data-visible="true"] { opacity: 1; }
+
+.hover-card-logo {
+  height: 28px;
+  max-width: 80px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: var(--space-2);
+}
+
+.hover-card-name {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: var(--size-base);
+  color: var(--ink);
+  margin-bottom: var(--space-1);
+}
+
+.hover-card-meta {
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-bottom: var(--space-2);
+}
+
+.hover-card-purpose {
+  color: var(--ink);
+  line-height: 1.4;
+}
+</style>
