@@ -92,3 +92,14 @@ See `CATEGORIES.md` for the partnership taxonomy and rules. See `extract_prompt.
 ## Project layout
 
 See the spec doc for the full file tree.
+
+## Routes
+
+- `/` — graph-first homepage (Cytoscape force-directed; mobile redirects to /list)
+- `/list` — sortable table of all active partnerships with category filters
+- `/partners/[id]` — detail page per partner with evidence timeline
+- `/about` — methodology, what counts, what doesn't, the six categories
+
+## Adding a new partner logo
+
+Drop a transparent SVG at `public/logos/<id>.svg` (where `<id>` matches the entry's `id` in `data/relationships.json`). The Logo component will pick it up at next build. If no logo file exists, the partner is rendered as italic serif text.
