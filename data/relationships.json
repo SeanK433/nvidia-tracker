@@ -13,7 +13,40 @@
     "last_confirmed": "2025-12-10",
     "status": "active",
     "confidence": "high",
-    "notes": "Foundry relationship confirmed by both TSMC and Nvidia through multiple product generations (Ada Lovelace, Hopper, Blackwell). Rubin on N3P confirmed by analyst reports and TSMC roadmap."
+    "notes": "Foundry relationship confirmed by both TSMC and Nvidia through multiple product generations (Ada Lovelace, Hopper, Blackwell). Rubin on N3P confirmed by analyst reports and TSMC roadmap.",
+    "significance_tier": "core",
+    "significance_narrative": "TSMC is Nvidia's sole advanced foundry partner, manufacturing 100% of its leading-edge GPUs. Nvidia accounts for ~22% of TSMC's total foundry revenue — its largest single customer — driving HPC from 40% to 55%+ of TSMC revenue.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2020-01-01",
+        "type": "establishment",
+        "headline": "TSMC serves as Nvidia's exclusive advanced foundry for AI GPU production",
+        "description": "Multi-decade foundry relationship confirmed across Ada Lovelace, Hopper, and Blackwell generations on N4 nodes; Rubin next-gen GPUs planned for N3P process. Partnership traces to 1997.",
+        "url": "https://www.digitimes.com/news/a20251210PD218/tsmc-cowos-capacity-nvidia-equipment.html"
+      },
+      {
+        "date": "2023-03-21",
+        "type": "product-launch",
+        "headline": "TSMC and Nvidia bring CuLitho computational lithography to production",
+        "description": "TSMC, Nvidia, and Synopsys launch GPU-accelerated CuLitho platform, improving mask preparation throughput 40× and accelerating next-node process development.",
+        "url": "https://nvidianews.nvidia.com/news/tsmc-synopsys-nvidia-culitho"
+      },
+      {
+        "date": "2025-12-10",
+        "type": "expansion",
+        "headline": "Nvidia secures 60% of TSMC CoWoS advanced packaging capacity through 2026–27",
+        "description": "Nvidia locks in the majority of TSMC's CoWoS advanced packaging output through 2026–27, prioritizing Blackwell and future GPU program supply over all other customers.",
+        "url": "https://www.digitimes.com/news/a20251210PD218/tsmc-cowos-capacity-nvidia-equipment.html"
+      },
+      {
+        "date": "2026-01-26",
+        "type": "expansion",
+        "headline": "Nvidia surpasses Apple as TSMC's largest customer at ~22% of revenue",
+        "description": "Nvidia projected to generate ~$33B (22%) of TSMC annual foundry revenue in 2026, overtaking Apple (~$27B, 18%) as TSMC's single largest customer.",
+        "url": "https://www.cnbc.com/2026/01/26/nvidia-set-to-supplant-apple-as-tsmcs-largest-customer.html"
+      }
+    ]
   },
   {
     "id": "sk-hynix",
@@ -29,7 +62,40 @@
     "last_confirmed": "2025-10-31",
     "status": "active",
     "confidence": "high",
-    "notes": "HBM3 supply announced March 2023. SK Group AI factory announcement October 2025 names SK hynix collaboration on advanced memory and semiconductor R&D. SK hynix holds ~62% HBM market share shipping to Nvidia."
+    "notes": "HBM3 supply announced March 2023. SK Group AI factory announcement October 2025 names SK hynix collaboration on advanced memory and semiconductor R&D. SK hynix holds ~62% HBM market share shipping to Nvidia.",
+    "significance_tier": "core",
+    "significance_narrative": "Nvidia drives ~27% of SK Hynix total revenue as its primary HBM supplier. SK Hynix holds ~62% HBM market share and ~70% of Nvidia's HBM4 allocation, making this partnership transformative for SK Hynix's entire business trajectory.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2023-03-21",
+        "type": "establishment",
+        "headline": "SK Hynix named Nvidia's first HBM3 supplier",
+        "description": "SK Hynix became the first in the industry to supply HBM3 DRAM to Nvidia, establishing its role as Nvidia's primary high-bandwidth memory partner entering the AI boom.",
+        "url": "https://news.skhynix.com/sk-hynix-to-supply-industrys-first-hbm3-dram-to-nvidia/"
+      },
+      {
+        "date": "2025-08-18",
+        "type": "expansion",
+        "headline": "Nvidia drives 27% of SK Hynix total revenue in H1 2025",
+        "description": "Nvidia became SK Hynix's single largest customer, accounting for ~27% of all revenue in H1 2025, up from ~16% in 2024, driven by HBM3E demand for H200 and GB200 platforms.",
+        "url": "https://www.trendforce.com/news/2025/08/18/news-nvidia-reportedly-drives-27-of-sk-hynix-revenue-in-1h25-cementing-ai-chip-partnership"
+      },
+      {
+        "date": "2025-10-31",
+        "type": "expansion",
+        "headline": "SK Group AI factory deepens advanced memory and semiconductor R&D collaboration",
+        "description": "SK Group AI factory announcement names SK Hynix collaboration with Nvidia on next-generation advanced memory and semiconductor R&D, extending partnership beyond supply into co-development.",
+        "url": "https://nvidianews.nvidia.com/news/sk-group-ai-factory"
+      },
+      {
+        "date": "2025-12-26",
+        "type": "product-launch",
+        "headline": "SK Hynix ships final HBM4 samples to Nvidia ahead of mass production",
+        "description": "SK Hynix delivers final paid HBM4 samples to Nvidia, targeting February 2026 mass production ramp, with SK Hynix securing ~70% of Nvidia's HBM4 allocation for the Vera Rubin platform.",
+        "url": "https://www.digitimes.com/news/a20251226PD215/sk-hynix-nvidia-hbm4-tsmc-production.html"
+      }
+    ]
   },
   {
     "id": "micron",
@@ -45,7 +111,33 @@
     "last_confirmed": "2025-03-18",
     "status": "active",
     "confidence": "high",
-    "notes": "Micron confirmed sole LPDRAM supplier for Nvidia GB-family. HBM3E 8H in GB200, HBM3E 12H in GB300. HBM4 for Vera Rubin in production."
+    "notes": "Micron confirmed sole LPDRAM supplier for Nvidia GB-family. HBM3E 8H in GB200, HBM3E 12H in GB300. HBM4 for Vera Rubin in production.",
+    "significance_tier": "significant",
+    "significance_narrative": "Micron is Nvidia's sole LPDRAM supplier for the entire GB server family and a key HBM3E/HBM4 partner. Data center reached 56% of Micron FY25 revenue with Nvidia as primary driver; HBM revenue grew 5× year-over-year.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2024-01-08",
+        "type": "establishment",
+        "headline": "Micron named HBM3E and LPDRAM supplier for Nvidia Blackwell platforms",
+        "description": "Micron supplies HBM3E 8H for H200 and 8H/12H variants for GB200/GB300, and is the sole LPDRAM supplier for Nvidia's GB server family — a role pioneered in close collaboration with Nvidia engineering.",
+        "url": "https://investors.micron.com/news-releases/news-release-details/micron-innovates-data-center-edge-nvidia"
+      },
+      {
+        "date": "2025-02-17",
+        "type": "expansion",
+        "headline": "Micron secures Nvidia supply deal for 12-stack HBM3E mass production",
+        "description": "Micron reaches mass production of HBM3E 12H for Nvidia GB300, securing its position alongside SK Hynix as a dual-source HBM supplier for Blackwell-era platforms.",
+        "url": "https://www.trendforce.com/news/2025/02/17/news-micron-reportedly-set-to-mass-produce-12-stack-hbm3e-securing-nvidia-supply-deal/"
+      },
+      {
+        "date": "2025-03-18",
+        "type": "product-launch",
+        "headline": "Micron confirms full Blackwell memory suite and HBM4 for Vera Rubin at GTC 2025",
+        "description": "Official Nvidia GTC 2025 announcement confirms Micron as sole LPDRAM supplier for all GB-family products, with HBM3E 12H shipping for GB300 and HBM4 in high-volume production for Vera Rubin.",
+        "url": "https://investors.micron.com/news-releases/news-release-details/micron-innovates-data-center-edge-nvidia"
+      }
+    ]
   },
   {
     "id": "samsung",
@@ -61,7 +153,40 @@
     "last_confirmed": "2025-10-31",
     "status": "active",
     "confidence": "high",
-    "notes": "25-year supply relationship. October 2025 AI factory announcement covers HBM3E, HBM4, GDDR7, SOCAMM2, and foundry services alongside the GPU factory build."
+    "notes": "25-year supply relationship. October 2025 AI factory announcement covers HBM3E, HBM4, GDDR7, SOCAMM2, and foundry services alongside the GPU factory build.",
+    "significance_tier": "ancillary",
+    "significance_narrative": "Despite a 30-year memory and foundry supply relationship, Nvidia represents a small share of Samsung's ~$200B total revenue. Samsung holds ~22% HBM market share vs SK Hynix's 57%, and is fighting to regain Nvidia allocation with HBM3E and HBM4.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "1993-01-01",
+        "type": "establishment",
+        "headline": "Samsung begins 30-year memory supply partnership with Nvidia",
+        "description": "Multi-decade supply relationship covering DRAM, GDDR, HBM, SOCAMM2, and foundry services across every Nvidia GPU generation. Partnership confirmed to span 25+ years in joint announcements.",
+        "url": "https://nvidianews.nvidia.com/news/samsung-ai-factory"
+      },
+      {
+        "date": "2025-09-19",
+        "type": "expansion",
+        "headline": "Samsung HBM3E clears Nvidia qualification after delays, enters supply chain",
+        "description": "Samsung's 12-layer HBM3E passes Nvidia qualification in Q3 2025, opening the door to Nvidia supply contracts after months of lag behind SK Hynix and Micron on HBM3E delivery.",
+        "url": "https://www.kedglobal.com/korean-chipmakers/newsView/ked202509190008"
+      },
+      {
+        "date": "2025-10-31",
+        "type": "expansion",
+        "headline": "Samsung and Nvidia announce 50,000-GPU AI factory for intelligent manufacturing",
+        "description": "Nvidia and Samsung announce a 50,000+ GPU Blackwell AI factory covering HBM3E, HBM4, GDDR7, SOCAMM2, and foundry services, alongside AI and robotics model development.",
+        "url": "https://nvidianews.nvidia.com/news/samsung-ai-factory"
+      },
+      {
+        "date": "2026-03-18",
+        "type": "product-launch",
+        "headline": "Samsung unveils HBM4E roadmap at GTC 2026, deepening Nvidia partnership vision",
+        "description": "Samsung presents HBM4E and comprehensive AI solutions roadmap at Nvidia GTC 2026, reaffirming multi-product collaboration across memory and semiconductor manufacturing.",
+        "url": "https://news.samsung.com/global/samsung-unveils-hbm4e-showcasing-comprehensive-ai-solutions-nvidia-partnership-and-vision-at-nvidia-gtc-2026"
+      }
+    ]
   },
   {
     "id": "ase-spil",
@@ -77,7 +202,33 @@
     "last_confirmed": "2025-11-20",
     "status": "active",
     "confidence": "medium",
-    "notes": "Jensen Huang attended SPIL Taichung facility opening January 2025. SPIL holds TSMC-licensed CoWoS-S technology. Named partner for US packaging expansion alongside Amkor. Primary source is trade press (Digitimes); SPIL is ASE subsidiary."
+    "notes": "Jensen Huang attended SPIL Taichung facility opening January 2025. SPIL holds TSMC-licensed CoWoS-S technology. Named partner for US packaging expansion alongside Amkor. Primary source is trade press (Digitimes); SPIL is ASE subsidiary.",
+    "significance_tier": "significant",
+    "significance_narrative": "SPIL provides TSMC-licensed CoWoS-S advanced packaging for Nvidia Blackwell chips and is co-developing next-gen CoWoP packaging. Handles ~80K of Nvidia's ~595K annual CoWoS wafers, a meaningful share of ASE/SPIL's advanced packaging business.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2025-01-17",
+        "type": "establishment",
+        "headline": "Jensen Huang opens SPIL facility, cementing CoWoS advanced packaging partnership",
+        "description": "Jensen Huang personally inaugurated SPIL's Taichung TTIP facility, confirming SPIL as a dedicated advanced packaging partner for Nvidia AI GPUs using TSMC-licensed CoWoS-S technology.",
+        "url": "https://www.aseglobal.com/press-room/spil-hosts-nvidia-founder-and-ceo-at-new-factory-site/"
+      },
+      {
+        "date": "2025-11-20",
+        "type": "expansion",
+        "headline": "SPIL named Nvidia US packaging partner alongside Amkor for domestic supply chain",
+        "description": "SPIL confirmed as a named partner for Nvidia's US IC backend capacity expansion, with SPIL expanding Arizona packaging facilities as part of Nvidia's effort to build domestic AI chip supply chains.",
+        "url": "https://www.digitimes.com/news/a20251120PD218/nvidia-amkor-spil-capacity-supply-chain-usa.html"
+      },
+      {
+        "date": "2025-12-08",
+        "type": "expansion",
+        "headline": "SPIL leads development of CoWoP next-generation packaging for Nvidia",
+        "description": "As TSMC's CoWoS-L/S reaches full booking, SPIL takes the lead on CoWoP (Chip-on-Wafer-on-PCB) development for Nvidia, potentially handling next-gen packaging needs beyond current CoWoS technology.",
+        "url": "https://www.trendforce.com/news/2025/12/08/news-tsmcs-cowos-l-s-reportedly-fully-booked-osat-partners-step-up-with-ases-cowop-in-focus/"
+      }
+    ]
   },
   {
     "id": "mediatek",
@@ -93,7 +244,26 @@
     "last_confirmed": "2025-05-19",
     "status": "active",
     "confidence": "high",
-    "notes": "Confirmed by both Nvidia Newsroom press release and MediaTek's own blog post. MediaTek CEO Rick Tsai quoted on-record. NVLink Fusion announced at COMPUTEX May 19, 2025."
+    "notes": "Confirmed by both Nvidia Newsroom press release and MediaTek's own blog post. MediaTek CEO Rick Tsai quoted on-record. NVLink Fusion announced at COMPUTEX May 19, 2025.",
+    "significance_tier": "significant",
+    "significance_narrative": "The NVLink Fusion partnership anchors MediaTek's push into data center AI ASICs, with $1B+ in ASIC revenue forecast for 2026. AI chips are projected to reach 20% of MediaTek's total revenue by 2027, transforming its core business mix.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2025-05-19",
+        "type": "establishment",
+        "headline": "MediaTek joins Nvidia NVLink Fusion ecosystem to build custom AI ASICs",
+        "description": "MediaTek named as a founding NVLink Fusion partner at COMPUTEX 2025; MediaTek CEO Rick Tsai appeared on-stage with Jensen Huang to confirm custom XPU and scale-up interconnect collaboration.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-nvlink-fusion-semi-custom-ai-infrastructure-partner-ecosystem"
+      },
+      {
+        "date": "2026-02-05",
+        "type": "expansion",
+        "headline": "MediaTek forecasts $1B in AI ASIC revenue for 2026, targeting 20% of total revenue by 2027",
+        "description": "MediaTek confirms AI ASIC design wins driven by NVLink Fusion programs, projecting $1B+ in 2026 ASIC sales and AI chips comprising ~20% of total company revenue by 2027.",
+        "url": "https://www.trendforce.com/news/2026/02/05/news-mediatek-forecasts-1b-in-asic-sales-for-2026-custom-ai-chips-set-for-20-revenue-share-in-2027/"
+      }
+    ]
   },
   {
     "id": "astera-labs",
@@ -109,7 +279,33 @@
     "last_confirmed": "2025-12-02",
     "status": "active",
     "confidence": "high",
-    "notes": "Confirmed by both Nvidia NVLink Fusion press release and Astera Labs' own IR press releases. Expanded custom connectivity solutions announced December 2025."
+    "notes": "Confirmed by both Nvidia NVLink Fusion press release and Astera Labs' own IR press releases. Expanded custom connectivity solutions announced December 2025.",
+    "significance_tier": "significant",
+    "significance_narrative": "Astera Labs grew 92% YoY to $852M in FY2025 with Nvidia platforms as primary driver. NVLink Fusion custom solutions add a new revenue layer beyond PCIe retimers; Nvidia is the dominant customer though Astera is actively diversifying.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2025-03-17",
+        "type": "establishment",
+        "headline": "Astera Labs demonstrates first PCIe 6 interoperability with Nvidia Blackwell at GTC 2025",
+        "description": "Astera Labs' Scorpio P-Series Fabric Switches and Aries 6 Retimers achieve the industry's first end-to-end PCIe 6 interoperability with an Nvidia Blackwell GPU, deployed across Hopper and HGX platforms.",
+        "url": "https://www.asteralabs.com/astera-labs-2025-milestones-a-breakthrough-year-of-expansion-innovation-ecosystem-leadership/"
+      },
+      {
+        "date": "2025-05-19",
+        "type": "expansion",
+        "headline": "Astera Labs joins Nvidia NVLink Fusion ecosystem as founding connectivity partner",
+        "description": "Astera Labs named founding NVLink Fusion partner providing scale-up connectivity solutions; collaboration expands from PCIe retimers to custom NVLink-native connectivity silicon.",
+        "url": "https://ir.asteralabs.com/news-releases/news-release-details/astera-labs-expands-collaboration-nvidia-advance-nvlink-fusion"
+      },
+      {
+        "date": "2025-12-02",
+        "type": "expansion",
+        "headline": "Astera Labs expands into custom NVLink connectivity solutions for hyperscalers",
+        "description": "Astera Labs announces custom connectivity solutions co-developed with hyperscaler partners to support NVLink connectivity, extending the NVLink Fusion ecosystem beyond standard silicon.",
+        "url": "https://ir.asteralabs.com/news-releases/news-release-details/astera-labs-expands-connectivity-portfolio-custom-solutions"
+      }
+    ]
   },
   {
     "id": "marvell",
@@ -125,7 +321,26 @@
     "last_confirmed": "2026-03-31",
     "status": "active",
     "confidence": "high",
-    "notes": "Initial NVLink Fusion partner May 2025. Nvidia $2B equity investment and expanded partnership confirmed March 2026. Also includes AI-RAN 5G/6G and silicon photonics collaboration. Secondary category: investment."
+    "notes": "Initial NVLink Fusion partner May 2025. Nvidia $2B equity investment and expanded partnership confirmed March 2026. Also includes AI-RAN 5G/6G and silicon photonics collaboration. Secondary category: investment.",
+    "significance_tier": "core",
+    "significance_narrative": "Nvidia's $2B investment and NVLink Fusion partnership is central to Marvell's data center strategy. Data center is 74% of Marvell revenue; custom AI ASIC run rate is $1.5B annually. Marvell is the anchor custom silicon partner in Nvidia's ecosystem.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2025-05-19",
+        "type": "establishment",
+        "headline": "Marvell joins Nvidia NVLink Fusion ecosystem as founding custom XPU partner",
+        "description": "Marvell named a founding NVLink Fusion partner at COMPUTEX 2025 to develop custom XPUs and NVLink-compatible scale-up networking, establishing Marvell as a key AI-RAN and silicon photonics collaborator.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-nvlink-fusion-semi-custom-ai-infrastructure-partner-ecosystem"
+      },
+      {
+        "date": "2026-03-31",
+        "type": "investment",
+        "headline": "Nvidia invests $2B in Marvell, deepening NVLink Fusion custom silicon partnership",
+        "description": "Nvidia makes a $2B equity investment in Marvell alongside an expanded NVLink Fusion agreement covering custom XPUs, scale-up networking, AI-RAN 5G/6G, and silicon photonics co-development.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-ai-ecosystem-expands-as-marvell-joins-forces-through-nvlink-fusion"
+      }
+    ]
   },
   {
     "id": "coreweave",
@@ -141,7 +356,33 @@
     "last_confirmed": "2026-01-26",
     "status": "active",
     "confidence": "high",
-    "notes": "Nvidia $2B equity stake (11.5% ownership). $6.3B capacity guarantee agreement September 2025. Named technology collaboration on Rubin, Vera, BlueField. Secondary category: investment."
+    "notes": "Nvidia $2B equity stake (11.5% ownership). $6.3B capacity guarantee agreement September 2025. Named technology collaboration on Rubin, Vera, BlueField. Secondary category: investment.",
+    "significance_tier": "core",
+    "significance_narrative": "CoreWeave's entire business is built on Nvidia GPU infrastructure, making the partnership existential for CoreWeave. Nvidia's $6.3B capacity backstop and $2B equity stake guarantee CoreWeave's revenue while securing Nvidia a captive hyperscale deployment partner through 2032.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2023-08-01",
+        "type": "establishment",
+        "headline": "CoreWeave emerges as Nvidia's flagship AI cloud partner backed by initial equity investment",
+        "description": "Nvidia invested $100M in CoreWeave in April 2023; CoreWeave raised $2.3B in debt collateralized by Nvidia H100 GPUs, establishing CoreWeave as the primary hyperscale deployer of Nvidia AI infrastructure.",
+        "url": "https://www.cnbc.com/2026/01/26/3coreweave-nvidia-stock-ai-data-centers.html"
+      },
+      {
+        "date": "2025-09-18",
+        "type": "investment",
+        "headline": "Nvidia commits $6.3B to purchase unsold CoreWeave compute capacity through April 2032",
+        "description": "Nvidia agrees to absorb any unsold CoreWeave data center capacity through 2032, providing a $6.3B revenue backstop that enables CoreWeave to aggressively expand AI factory buildout.",
+        "url": "https://www.hpcwire.com/2025/09/18/nvidia-secures-6-3b-coreweave-deal-commits-to-major-uk-ai-rollout/"
+      },
+      {
+        "date": "2026-01-26",
+        "type": "investment",
+        "headline": "Nvidia invests $2B in CoreWeave, names it early adopter of Rubin, Vera CPU, and BlueField",
+        "description": "Nvidia makes a $2B equity investment (11.5% stake at $87.20/share) and names CoreWeave the exclusive early adopter of next-generation Rubin GPUs, Vera CPU, and BlueField platforms.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+      }
+    ]
   },
   {
     "id": "nebius",
@@ -157,7 +398,33 @@
     "last_confirmed": "2026-03-11",
     "status": "active",
     "confidence": "high",
-    "notes": "Official Nvidia Newsroom press release. Nvidia $2B equity investment. Named joint program: full-stack AI cloud covering AI factory design, inference stack, fleet management, and early Rubin access. Secondary category: investment."
+    "notes": "Official Nvidia Newsroom press release. Nvidia $2B equity investment. Named joint program: full-stack AI cloud covering AI factory design, inference stack, fleet management, and early Rubin access. Secondary category: investment.",
+    "significance_tier": "core",
+    "significance_narrative": "Nebius's entire AI cloud business runs on Nvidia infrastructure, and the $2B investment gives Nvidia ~8.3% ownership. With ~$50B in contracted backlog and 5GW of planned capacity by 2030, Nebius is a major captive demand channel for next-generation Nvidia platforms.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2024-09-01",
+        "type": "establishment",
+        "headline": "Nebius launches as dedicated Nvidia-powered full-stack AI cloud",
+        "description": "Nebius relaunches as an independent AI cloud operator (spun from Yandex), deploying Nvidia GPU infrastructure across global AI factories as the foundation of its full-stack cloud platform.",
+        "url": "https://nebius.com/newsroom/nebius-announces-oversubscribed-strategic-equity-financing-of-usd-700-million-to-accelerate-roll-out-of-full-stack-ai-infrastructure"
+      },
+      {
+        "date": "2024-12-01",
+        "type": "investment",
+        "headline": "Nvidia joins Nebius $700M oversubscribed strategic financing as initial investor",
+        "description": "Nvidia acquires an initial 0.5% stake in Nebius through its $700M strategic equity financing alongside Accel and Orbis, marking Nvidia's first direct equity position in Nebius.",
+        "url": "https://nebius.com/newsroom/nebius-announces-oversubscribed-strategic-equity-financing-of-usd-700-million-to-accelerate-roll-out-of-full-stack-ai-infrastructure"
+      },
+      {
+        "date": "2026-03-11",
+        "type": "investment",
+        "headline": "Nvidia invests $2B in Nebius, names it early Rubin adopter and full-stack AI cloud partner",
+        "description": "Nvidia makes a $2B equity investment (~8.3% stake) and announces a named joint program covering AI factory design, inference stack, fleet management, and early Rubin platform access.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-and-nebius-partner-to-scale-full-stack-ai-cloud"
+      }
+    ]
   },
   {
     "id": "crusoe",
@@ -173,7 +440,26 @@
     "last_confirmed": "2026-03-17",
     "status": "active",
     "confidence": "high",
-    "notes": "Named in original DGX Cloud Lepton NVIDIA Cloud Partner press release May 2025. March 2026 expansion confirmed by Crusoe's own newsroom covering Vera CPU early adoption, Rubin NLV72, and NVIDIA Dynamo inference integration."
+    "notes": "Named in original DGX Cloud Lepton NVIDIA Cloud Partner press release May 2025. March 2026 expansion confirmed by Crusoe's own newsroom covering Vera CPU early adoption, Rubin NLV72, and NVIDIA Dynamo inference integration.",
+    "significance_tier": "significant",
+    "significance_narrative": "Crusoe's AI factory business is built entirely on Nvidia infrastructure. Nvidia participated in Crusoe's $1.375B Series E; Crusoe's power pipeline exceeds 45GW. Partnership covers Rubin, Vera CPU, BlueField, and Dynamo, making Crusoe a key captive demand channel.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2025-05-19",
+        "type": "establishment",
+        "headline": "Crusoe named NVIDIA Cloud Partner in DGX Cloud Lepton launch at COMPUTEX 2025",
+        "description": "Crusoe named as an NVIDIA Cloud Partner providing Blackwell GPU capacity on the DGX Cloud Lepton marketplace, connecting Crusoe's energy-first AI factory infrastructure to Nvidia's global developer ecosystem.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-announces-dgx-cloud-lepton-to-connect-developers-to-nvidias-global-compute-ecosystem"
+      },
+      {
+        "date": "2026-03-17",
+        "type": "expansion",
+        "headline": "Crusoe expands Nvidia collaboration to full AI factory stack with Vera CPU and Rubin NLV72",
+        "description": "Crusoe announces expanded Nvidia collaboration at GTC 2026 covering early Vera CPU adoption, Rubin NLV72 systems, and NVIDIA Dynamo inference integration — spanning the full AI infrastructure stack.",
+        "url": "https://www.crusoe.ai/resources/newsroom/crusoe-expands-nvidia-collaboration"
+      }
+    ]
   },
   {
     "id": "lambda",
@@ -189,7 +475,33 @@
     "last_confirmed": "2025-10-09",
     "status": "active",
     "confidence": "high",
-    "notes": "Nvidia invested in Lambda's $480M Series D (February 2025). Named Exemplar Cloud designation and 2024 AI Excellence Partner of the Year. Lambda also signed $1.5B leaseback agreement with Nvidia for 18,000 GPUs. Secondary category: investment."
+    "notes": "Nvidia invested in Lambda's $480M Series D (February 2025). Named Exemplar Cloud designation and 2024 AI Excellence Partner of the Year. Lambda also signed $1.5B leaseback agreement with Nvidia for 18,000 GPUs. Secondary category: investment.",
+    "significance_tier": "significant",
+    "significance_narrative": "Nvidia's $480M Series D co-investment and $1.5B GPU leaseback make Nvidia both Lambda's investor and largest customer. Lambda projects cloud revenue exceeding $1B by 2026, with the Nvidia partnership providing capital and credibility for its anticipated IPO.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2024-01-01",
+        "type": "establishment",
+        "headline": "Lambda named NVIDIA Cloud Partner and 2024 AI Excellence Partner of the Year",
+        "description": "Lambda joins Nvidia's cloud partner ecosystem deploying Nvidia GPUs as a cloud platform, earning the 2024 AI Excellence Partner of the Year designation and later the Exemplar Cloud status.",
+        "url": "https://www.businesswire.com/news/home/20251009688701/en/Lambda-Achieves-NVIDIA-Exemplar-Cloud"
+      },
+      {
+        "date": "2025-02-19",
+        "type": "investment",
+        "headline": "Nvidia co-invests in Lambda's $480M Series D at $2.5B valuation",
+        "description": "Nvidia participates directly in Lambda's $480M Series D alongside ARK Invest, G Squared, and Andrej Karpathy, giving Nvidia an equity stake in a key GPU cloud partner.",
+        "url": "https://www.cnbc.com/2025/02/19/ai-cloud-startup-lambda-raises-480-million-in-new-round-nvidia-among-investors.html"
+      },
+      {
+        "date": "2025-09-08",
+        "type": "investment",
+        "headline": "Nvidia signs $1.5B leaseback deal for 18,000 Lambda GPUs, becoming Lambda's largest customer",
+        "description": "Nvidia agrees to lease 18,000 GPU servers from Lambda over four years — $1.3B for 10,000 servers plus $200M for 8,000 more — making Nvidia Lambda's single largest customer ahead of Lambda's IPO.",
+        "url": "https://www.datacenterdynamics.com/en/news/nvidia-signs-15bn-deal-to-lease-its-gpus-back-from-lambda-report/"
+      }
+    ]
   },
   {
     "id": "oracle",
@@ -205,7 +517,33 @@
     "last_confirmed": "2024-03-18",
     "status": "active",
     "confidence": "high",
-    "notes": "Named program: NVIDIA DGX Cloud on OCI. Sovereign AI named joint initiative. DGX Cloud Lepton also integrated into OCI. OCI Supercluster uses Nvidia Grace Blackwell."
+    "notes": "Named program: NVIDIA DGX Cloud on OCI. Sovereign AI named joint initiative. DGX Cloud Lepton also integrated into OCI. OCI Supercluster uses Nvidia Grace Blackwell.",
+    "significance_tier": "significant",
+    "significance_narrative": "The Nvidia DGX Cloud partnership is central to OCI's IaaS growth, which surged 68% YoY to $4.1B. Oracle is deploying 400,000+ GB200 GPUs for Project Stargate and has built the world's largest AI supercomputer cluster (131,072 GPUs) on OCI.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2023-05-28",
+        "type": "establishment",
+        "headline": "Oracle named as first hyperscaler to host NVIDIA DGX Cloud on OCI",
+        "description": "Oracle announced as the founding cloud host for NVIDIA DGX Cloud on OCI at Computex 2023, establishing OCI as Nvidia's primary hyperscaler cloud partner for enterprise AI training and inference.",
+        "url": "https://nvidianews.nvidia.com/news/oracle-nvidia-sovereign-ai"
+      },
+      {
+        "date": "2024-03-18",
+        "type": "expansion",
+        "headline": "Oracle and Nvidia announce joint Sovereign AI program and GB200 NVL72 on OCI",
+        "description": "Oracle and Nvidia expand partnership to deliver sovereign AI solutions worldwide with NVIDIA DGX Cloud on OCI adding 20,000+ GB200 accelerators and CX8 InfiniBand for government and enterprise deployments.",
+        "url": "https://nvidianews.nvidia.com/news/oracle-nvidia-sovereign-ai"
+      },
+      {
+        "date": "2025-06-12",
+        "type": "expansion",
+        "headline": "OCI GB200 NVL72 supercluster reaches general availability with 131,072-GPU capacity",
+        "description": "Oracle makes GB200 NVL72 systems on OCI Supercluster generally available, hosting the world's largest cloud AI supercomputer. Oracle integrates with DGX Cloud Lepton and makes NVIDIA AI Enterprise available natively on OCI.",
+        "url": "https://www.oracle.com/news/announcement/oracle-and-nvidia-help-enterprises-and-developers-accelerate-ai-innovation-2025-06-12/"
+      }
+    ]
   },
   {
     "id": "servicenow",
@@ -221,7 +559,33 @@
     "last_confirmed": "2025-10-31",
     "status": "active",
     "confidence": "high",
-    "notes": "Six years of joint AI model development confirmed by ServiceNow. Named co-engineered output: Apriel Nemotron 15B model (2025) and Apriel 2.0. Both Nvidia Newsroom and ServiceNow press releases confirm joint engineering. October 2025 expansion adds AI Factory reference design integration."
+    "notes": "Six years of joint AI model development confirmed by ServiceNow. Named co-engineered output: Apriel Nemotron 15B model (2025) and Apriel 2.0. Both Nvidia Newsroom and ServiceNow press releases confirm joint engineering. October 2025 expansion adds AI Factory reference design integration.",
+    "significance_tier": "significant",
+    "significance_narrative": "Nvidia co-engineers ServiceNow's AI agent models and NIM-based workflows, directly differentiating ServiceNow's enterprise AI platform. The six-year collaboration has produced Apriel Nemotron 15B and an expanding agent framework anchoring ServiceNow's AI strategy.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2019-01-01",
+        "type": "establishment",
+        "headline": "ServiceNow and Nvidia begin six-year joint AI model development collaboration",
+        "description": "Six years of joint AI model development confirmed by ServiceNow; early work focused on enterprise CUDA integrations and generative AI pipelines before expanding to named co-engineered model outputs.",
+        "url": "https://www.servicenow.com/company/media/press-room/nvidia-partnership-genai.html"
+      },
+      {
+        "date": "2024-10-23",
+        "type": "expansion",
+        "headline": "ServiceNow and Nvidia announce formal agentic AI partnership and NIM Agent Blueprints",
+        "description": "Formal named partnership announced to accelerate enterprise adoption of agentic AI, with NVIDIA NIM Agent Blueprints natively integrated into ServiceNow workflows and NeMo microservices for data curation.",
+        "url": "https://nvidianews.nvidia.com/news/servicenow-and-nvidia-announce-partnership-to-build-generative-ai-across-enterprise-it"
+      },
+      {
+        "date": "2025-05-06",
+        "type": "product-launch",
+        "headline": "ServiceNow and Nvidia launch Apriel Nemotron 15B enterprise reasoning model",
+        "description": "Co-engineered Apriel Nemotron 15B debuts at ServiceNow Knowledge 2025 — a 15B-parameter enterprise reasoning model post-trained jointly on ServiceNow and Nvidia data, delivered as an NVIDIA NIM microservice.",
+        "url": "https://www.businesswire.com/news/home/20250506532790/en/ServiceNow-and-NVIDIA-Fuel-a-New-Class-of-Intelligent-AI-Agents-Across-the-Enterprise"
+      }
+    ]
   },
   {
     "id": "sap",
@@ -237,7 +601,33 @@
     "last_confirmed": "2024-03-18",
     "status": "active",
     "confidence": "high",
-    "notes": "Confirmed by both Nvidia Newsroom and SAP press release simultaneously. Named joint output: SAP Business AI, Joule copilot, SAP Datasphere integrations with NVIDIA NIM. 20+ jointly deployed generative AI use cases named."
+    "notes": "Confirmed by both Nvidia Newsroom and SAP press release simultaneously. Named joint output: SAP Business AI, Joule copilot, SAP Datasphere integrations with NVIDIA NIM. 20+ jointly deployed generative AI use cases named.",
+    "significance_tier": "significant",
+    "significance_narrative": "Nvidia NIM microservices and co-engineered reasoning models underpin SAP Business AI and the Joule copilot, reaching 400M+ SAP ERP users. With 400+ planned AI scenarios by end-2025, Nvidia technology is embedded in SAP's core enterprise AI differentiation strategy.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2024-03-18",
+        "type": "establishment",
+        "headline": "SAP and Nvidia announce joint generative AI integration across SAP enterprise portfolio",
+        "description": "Simultaneous SAP and Nvidia announcement to build SAP Business AI using NVIDIA NIM microservices and generative AI foundry, targeting 20+ jointly deployed AI use cases across SAP S/4HANA, SuccessFactors, and Signavio.",
+        "url": "https://nvidianews.nvidia.com/news/sap-nvidia-generative-ai-enterprise-applications"
+      },
+      {
+        "date": "2025-03-18",
+        "type": "expansion",
+        "headline": "SAP integrates NVIDIA Llama Nemotron reasoning models into Joule and developer tooling",
+        "description": "SAP and Nvidia expand at GTC 2025 to add NVIDIA Llama Nemotron reasoning models into Joule copilot and Joule for developers powered by NVIDIA NIM, accelerating ABAP code generation and enterprise automation.",
+        "url": "https://news.sap.com/2025/03/sap-and-nvidia-shaping-future-of-business-ai/"
+      },
+      {
+        "date": "2026-03-18",
+        "type": "expansion",
+        "headline": "SAP and Nvidia advance enterprise AI transformation with agentic AI at GTC 2026",
+        "description": "SAP and Nvidia deepen collaboration at GTC 2026 to scale agentic AI across enterprise operations, expanding NVIDIA NIM integration and building toward 400+ AI-powered scenarios in SAP's cloud portfolio.",
+        "url": "https://news.sap.com/2026/03/how-sap-nvidia-advance-ai-enterprise-transformation/"
+      }
+    ]
   },
   {
     "id": "adobe",
@@ -253,7 +643,19 @@
     "last_confirmed": "2026-03-16",
     "status": "active",
     "confidence": "high",
-    "notes": "Confirmed by both Nvidia Newsroom and Adobe press release. Named co-engineering outputs: Firefly model acceleration with NVIDIA CUDA, agentic workflows with NVIDIA Agent Toolkit and Nemotron, 3D digital twins with NVIDIA Omniverse. GTC 2026 announcement."
+    "notes": "Confirmed by both Nvidia Newsroom and Adobe press release. Named co-engineering outputs: Firefly model acceleration with NVIDIA CUDA, agentic workflows with NVIDIA Agent Toolkit and Nemotron, 3D digital twins with NVIDIA Omniverse. GTC 2026 announcement.",
+    "significance_tier": "significant",
+    "significance_narrative": "The March 2026 strategic partnership embeds Nvidia CUDA-X, NeMo, and Agent Toolkit directly into Adobe Firefly model development and creative AI workflows. For Nvidia, Adobe's 400M+ Creative Cloud users represent a major software ecosystem distribution opportunity.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2026-03-16",
+        "type": "establishment",
+        "headline": "Adobe and Nvidia announce strategic partnership for next-gen Firefly models and agentic workflows",
+        "description": "Nvidia and Adobe unite research and engineering teams to accelerate Firefly on NVIDIA CUDA-X and NeMo libraries, co-develop creative and marketing agentic workflows with NVIDIA Agent Toolkit and Nemotron, and build 3D digital twins with NVIDIA Omniverse.",
+        "url": "https://nvidianews.nvidia.com/news/adobe-and-nvidia-partnership-creative-marketing-agentic-workflows"
+      }
+    ]
   },
   {
     "id": "microsoft-software",
@@ -269,7 +671,33 @@
     "last_confirmed": "2025-10-31",
     "status": "active",
     "confidence": "high",
-    "notes": "Named co-engineering: GB300 NVL72 with custom Azure Boost, NVIDIA Nemotron in SQL Server 2025, Microsoft 365 Copilot integrations, Rubin co-design across interconnects and rack scale. Both Nvidia blog and Microsoft Azure blog confirm. Distinct from Azure GPU cloud procurement."
+    "notes": "Named co-engineering: GB300 NVL72 with custom Azure Boost, NVIDIA Nemotron in SQL Server 2025, Microsoft 365 Copilot integrations, Rubin co-design across interconnects and rack scale. Both Nvidia blog and Microsoft Azure blog confirm. Distinct from Azure GPU cloud procurement.",
+    "significance_tier": "ancillary",
+    "significance_narrative": "Microsoft co-engineers GB300 NVL72 with Azure Boost/HSM and embeds Nemotron in SQL Server 2025, boosting Azure AI performance (18pp of Azure's 40% YoY growth). As a $240B company, this co-engineering is a small fraction of Microsoft's total business.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2023-11-15",
+        "type": "establishment",
+        "headline": "Microsoft and Nvidia announce deep Azure co-engineering for GB-series AI infrastructure",
+        "description": "Microsoft named as a co-engineering partner for Nvidia GB-family GPUs at Microsoft Ignite 2023, beginning a named collaboration on custom Azure infrastructure for leading-edge AI training and inference.",
+        "url": "https://azure.microsoft.com/en-us/blog/building-the-future-together-microsoft-and-nvidia-announce-ai-advancements-at-gtc-dc/"
+      },
+      {
+        "date": "2025-10-31",
+        "type": "expansion",
+        "headline": "Microsoft deploys world's first GB300 NVL72 supercomputing cluster with custom Azure Boost and HSM",
+        "description": "Microsoft launches the NDv6 GB300 VM series with co-engineered Azure Boost I/O acceleration and hardware security module integration — the first supercomputing-scale production cluster of GB300 NVL72 for OpenAI workloads.",
+        "url": "https://azure.microsoft.com/en-us/blog/microsoft-azure-delivers-the-first-large-scale-cluster-with-nvidia-gb300-nvl72-for-openai-workloads/"
+      },
+      {
+        "date": "2025-11-15",
+        "type": "product-launch",
+        "headline": "NVIDIA Nemotron integrated into Microsoft SQL Server 2025 for enterprise RAG",
+        "description": "Nvidia Nemotron open models and NVIDIA NIM microservices integrated into SQL Server 2025, delivering GPU-accelerated retrieval-augmented generation directly within enterprise database infrastructure on-premises and in Azure.",
+        "url": "https://developer.nvidia.com/blog/building-scalable-ai-on-enterprise-data-with-nvidia-nemotron-rag-and-microsoft-sql-server-2025/"
+      }
+    ]
   },
   {
     "id": "mercedes-benz",
@@ -285,7 +713,26 @@
     "last_confirmed": "2025-01-07",
     "status": "active",
     "confidence": "high",
-    "notes": "auto subtype. Announced June 2020, production deployed 2024. Mercedes-Benz S-Class with DRIVE AV L4-ready architecture confirmed at CES 2025. Partnership deployed in S-Class, EQS, and next-gen fleet on DRIVE Orin then DRIVE Thor."
+    "notes": "auto subtype. Announced June 2020, production deployed 2024. Mercedes-Benz S-Class with DRIVE AV L4-ready architecture confirmed at CES 2025. Partnership deployed in S-Class, EQS, and next-gen fleet on DRIVE Orin then DRIVE Thor.",
+    "significance_tier": "significant",
+    "significance_narrative": "Mercedes-Benz deploys NVIDIA DRIVE across its entire next-generation fleet, making Nvidia the foundation of its autonomous driving strategy. This partnership anchors Nvidia's automotive segment, which targets ~$5B in FY2026 revenue and grew 72% YoY.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2020-06-23",
+        "type": "establishment",
+        "headline": "Mercedes-Benz selects NVIDIA DRIVE as software-defined computing architecture for entire fleet",
+        "description": "Mercedes-Benz and Nvidia announce that every next-generation Mercedes-Benz vehicle starting in 2024 will include NVIDIA DRIVE AV computing architecture, enabling OTA-upgradable automated driving from L2++ toward L4.",
+        "url": "https://nvidianews.nvidia.com/news/mercedes-benz-and-nvidia-to-build-software-defined-computing-architecture-for-automated-driving-across-future-fleet"
+      },
+      {
+        "date": "2026-01-05",
+        "type": "product-launch",
+        "headline": "NVIDIA DRIVE AV full-stack software debuts in production Mercedes-Benz CLA",
+        "description": "The 2026 Mercedes-Benz CLA becomes the first production vehicle to ship Nvidia's complete AV stack including DRIVE AV, NVIDIA Halos safety architecture, and DRIVE Hyperion — earning Euro NCAP's Best Performer of 2025 safety award.",
+        "url": "https://blogs.nvidia.com/blog/drive-av-software-mercedes-benz-cla/"
+      }
+    ]
   },
   {
     "id": "volvo-cars",
@@ -301,7 +748,33 @@
     "last_confirmed": "2024-09-19",
     "status": "active",
     "confidence": "high",
-    "notes": "auto subtype. September 2024 press release confirms car-to-cloud expansion with DGX AI training infrastructure. EX90 production with DRIVE Orin is shipping. DRIVE Thor roadmap confirmed for next-gen models."
+    "notes": "auto subtype. September 2024 press release confirms car-to-cloud expansion with DGX AI training infrastructure. EX90 production with DRIVE Orin is shipping. DRIVE Thor roadmap confirmed for next-gen models.",
+    "significance_tier": "significant",
+    "significance_narrative": "Nvidia powers Volvo's entire autonomous driving stack — DRIVE Orin in production EX90s and DRIVE Thor in next-gen models — while Zenseact uses DGX supercomputers for AV training. Volvo has built its safety and software-defined vehicle strategy around Nvidia compute.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2016-01-01",
+        "type": "establishment",
+        "headline": "Volvo Cars and Nvidia begin AI-assisted driving collaboration",
+        "description": "Volvo Cars and Nvidia begin joint development of AI-assisted driving features starting in 2016, laying the foundation for what would become a full-fleet software-defined computing commitment.",
+        "url": "https://www.volvocars.com/intl/media/press-releases/E5D20D7F0AE0450D/"
+      },
+      {
+        "date": "2021-12-01",
+        "type": "expansion",
+        "headline": "Volvo Cars selects NVIDIA DRIVE Orin for next-generation fleet, beginning with EX90",
+        "description": "Volvo Cars deepens collaboration with Nvidia by selecting NVIDIA DRIVE Orin as the compute platform for its next-generation cars across the entire fleet, with the EX90 as the first production deployment.",
+        "url": "https://nvidianews.nvidia.com/news/volvo-selects-nvidia-drive-for-production-cars"
+      },
+      {
+        "date": "2024-09-19",
+        "type": "expansion",
+        "headline": "Volvo Cars expands to car-to-cloud with NVIDIA DGX training via Zenseact",
+        "description": "Volvo Cars extends collaboration from in-vehicle DRIVE Orin to cloud AI training with NVIDIA DGX supercomputers via Zenseact, building one of the largest AI training centers in the Nordics for autonomous driving development.",
+        "url": "https://www.prnewswire.com/news-releases/from-car-to-cloud-volvo-cars-expands-collaboration-with-nvidia-302238995.html"
+      }
+    ]
   },
   {
     "id": "hyundai-motor-group",
@@ -317,7 +790,33 @@
     "last_confirmed": "2026-03-16",
     "status": "active",
     "confidence": "high",
-    "notes": "auto subtype. October 2025 AI factory announcement; March 2026 DRIVE Hyperion expansion covers Hyundai Motor, Kia, and Motional Level 4 robotaxi. Both confirmed by Nvidia Newsroom and Hyundai newsroom."
+    "notes": "auto subtype. October 2025 AI factory announcement; March 2026 DRIVE Hyperion expansion covers Hyundai Motor, Kia, and Motional Level 4 robotaxi. Both confirmed by Nvidia Newsroom and Hyundai newsroom.",
+    "significance_tier": "significant",
+    "significance_narrative": "Hyundai Motor Group is deploying a 50,000-GPU Blackwell AI factory and DRIVE Hyperion across Hyundai, Kia, and Motional robotaxi. The partnership spans autonomous driving, smart manufacturing, and humanoid robotics — among Nvidia's broadest automotive collaborations.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2023-01-05",
+        "type": "establishment",
+        "headline": "Hyundai Motor Group and Nvidia announce formal autonomous driving partnership at CES 2023",
+        "description": "Hyundai Motor Group and Nvidia formalize their collaboration (building on a relationship since 2015) at CES 2023, committing to NVIDIA DRIVE AGX-based systems for next-generation autonomous driving across the group's vehicle lineup.",
+        "url": "https://nvidianews.nvidia.com/news/hyundai-motor-group-ai-factory"
+      },
+      {
+        "date": "2025-10-31",
+        "type": "expansion",
+        "headline": "Hyundai Motor Group announces 50,000-GPU Blackwell AI factory at APEC 2025",
+        "description": "Hyundai Motor Group announces a 50,000-GPU Nvidia Blackwell AI factory at the APEC summit, covering in-vehicle AI, autonomous driving, smart factory automation, and robotics model development in one integrated ecosystem.",
+        "url": "https://nvidianews.nvidia.com/news/hyundai-motor-group-ai-factory"
+      },
+      {
+        "date": "2026-03-16",
+        "type": "expansion",
+        "headline": "Hyundai Motor, Kia and Motional expand to NVIDIA DRIVE Hyperion for Level 4 autonomy",
+        "description": "Hyundai Motor and Kia integrate NVIDIA DRIVE Hyperion for next-generation ADAS across select vehicles; Motional joint venture expands Nvidia collaboration for Level 4 robotaxi development.",
+        "url": "https://nvidianews.nvidia.com/news/hyundai-motor-kia-autonomous-driving"
+      }
+    ]
   },
   {
     "id": "byd",
@@ -333,7 +832,33 @@
     "last_confirmed": "2026-03-16",
     "status": "active",
     "confidence": "high",
-    "notes": "auto subtype. March 2024 official Nvidia Newsroom announcement for DRIVE Thor adoption. March 2026 DRIVE Hyperion Level 4 expansion confirmed on Nvidia Newsroom."
+    "notes": "auto subtype. March 2024 official Nvidia Newsroom announcement for DRIVE Thor adoption. March 2026 DRIVE Hyperion Level 4 expansion confirmed on Nvidia Newsroom.",
+    "significance_tier": "significant",
+    "significance_narrative": "BYD, the world's largest EV maker, has committed to NVIDIA DRIVE Thor for its mainstream fleet and DRIVE Hyperion for Level 4 autonomy. With tens of millions of annual BYD vehicles, this partnership represents one of Nvidia's largest automotive volume customers.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2022-01-01",
+        "type": "establishment",
+        "headline": "BYD partners with Nvidia for AI-powered smart vehicles on NVIDIA DRIVE platform",
+        "description": "BYD begins collaboration with Nvidia on DRIVE Orin-based smart vehicles, laying the groundwork for full-fleet deployment of Nvidia's autonomous computing architecture across consumer and commercial EVs.",
+        "url": "https://nvidianews.nvidia.com/news/byd-worlds-largest-ev-maker-partners-with-nvidia-for-mainstream-software-defined-vehicles-built-on-nvidia-drive"
+      },
+      {
+        "date": "2024-03-19",
+        "type": "expansion",
+        "headline": "BYD formally adopts NVIDIA DRIVE Thor for next-generation consumer and commercial EV fleet",
+        "description": "At GTC 2024, BYD is officially named as adopting NVIDIA DRIVE Thor — confirming Nvidia as the AI compute platform for BYD's next-generation mainstream and commercial vehicles including Nvidia Isaac and Omniverse integrations.",
+        "url": "https://nvidianews.nvidia.com/news/byd-worlds-largest-ev-maker-partners-with-nvidia-for-mainstream-software-defined-vehicles-built-on-nvidia-drive"
+      },
+      {
+        "date": "2026-03-16",
+        "type": "expansion",
+        "headline": "BYD adopts NVIDIA DRIVE Hyperion for Level 4 autonomous vehicle programs",
+        "description": "BYD joins Geely, Isuzu, and Nissan in adopting NVIDIA DRIVE Hyperion at GTC 2026, expanding the partnership from mainstream ADAS to full Level 4 autonomy development on a production-ready reference architecture.",
+        "url": "https://nvidianews.nvidia.com/news/drive-hyperion-level-4"
+      }
+    ]
   },
   {
     "id": "foxconn",
@@ -349,7 +874,33 @@
     "last_confirmed": "2025-10-31",
     "status": "active",
     "confidence": "high",
-    "notes": "robotics/industrial subtype. Foxconn also provides server assembly (silicon subtype noted here). The primary stated purpose is AI industrial factories and robotics per the October 2023 announcement. Humanoid robot deployment in Houston NVIDIA factory confirmed October 2025."
+    "notes": "robotics/industrial subtype. Foxconn also provides server assembly (silicon subtype noted here). The primary stated purpose is AI industrial factories and robotics per the October 2023 announcement. Humanoid robot deployment in Houston NVIDIA factory confirmed October 2025.",
+    "significance_tier": "significant",
+    "significance_narrative": "Foxconn uses Nvidia Omniverse, Isaac, and GR00T N to build AI-powered smart factories and humanoid robots — including at the Houston facility that assembles Nvidia's GB300 servers. The partnership spans industrial AI tooling and physical production of Nvidia hardware.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2023-10-17",
+        "type": "establishment",
+        "headline": "Foxconn and Nvidia announce AI factories and intelligent manufacturing partnership",
+        "description": "Foxconn named as an AI industrial factory partner at Hon Hai Tech Day, committing to use Nvidia Omniverse and Isaac to create digital twins and train robots for next-generation AI manufacturing systems.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-partners-with-foxconn-to-build-factories-and-systemsfor-the-ai-industrial-revolution"
+      },
+      {
+        "date": "2025-11-07",
+        "type": "expansion",
+        "headline": "Foxconn deploys NVIDIA GR00T-powered humanoid robots in Houston AI server factory",
+        "description": "Foxconn deploys humanoid robots powered by NVIDIA Isaac GR00T N1 at the Houston facility manufacturing Nvidia GB300 AI servers, making it the first factory to use Nvidia-powered humanoids for AI server production.",
+        "url": "https://www.theregister.com/2025/11/07/foxconn_humanoid_robots_nvidia_server/"
+      },
+      {
+        "date": "2026-03-18",
+        "type": "expansion",
+        "headline": "Foxconn expands to Vera Rubin NVL72, modular data centers, and scaled humanoid robotics at GTC 2026",
+        "description": "Foxconn announces adoption of Vera Rubin NVL72 systems, modular AI data center design with Nvidia, and expanded humanoid robotics deployment using NVIDIA Isaac GR00T across global manufacturing facilities.",
+        "url": "https://www.honhai.com/en-us/press-center/press-releases/latest-news/1975"
+      }
+    ]
   },
   {
     "id": "schneider-electric",
@@ -365,7 +916,33 @@
     "last_confirmed": "2025-10-06",
     "status": "active",
     "confidence": "high",
-    "notes": "industrial subtype. Schneider Electric confirmed as Nvidia-approved CDU vendor. Co-developed reference designs for liquid-cooled high-density AI clusters up to 132kW per rack. Global partnership announced at Nvidia GTC Paris September 2025; expanded October 2025."
+    "notes": "industrial subtype. Schneider Electric confirmed as Nvidia-approved CDU vendor. Co-developed reference designs for liquid-cooled high-density AI clusters up to 132kW per rack. Global partnership announced at Nvidia GTC Paris September 2025; expanded October 2025.",
+    "significance_tier": "significant",
+    "significance_narrative": "As Nvidia's approved CDU vendor and reference design partner, Schneider Electric captures AI factory power and cooling spend. Data centers represent ~24% of Schneider revenue and are growing fastest, with Nvidia certification validating their solutions for GB300 NVL72 deployment.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2024-03-01",
+        "type": "establishment",
+        "headline": "Schneider Electric and Nvidia co-develop initial AI data center reference designs",
+        "description": "Schneider Electric begins collaboration with Nvidia on validated electrical and liquid cooling reference designs for high-density AI clusters, establishing Schneider as an approved CDU vendor for Nvidia deployments.",
+        "url": "https://www.se.com/ww/en/about-us/newsroom/news/press-releases/schneider-electric-collaborates-with-nvidia-on-designs-for-ai-data-centers-65f801c8595e3ff8cd0a80c8/"
+      },
+      {
+        "date": "2025-06-11",
+        "type": "expansion",
+        "headline": "Schneider Electric named global strategic AI factory partner at NVIDIA GTC Paris",
+        "description": "At GTC Paris, Schneider Electric and Nvidia announce a global strategic partnership for AI factory power, cooling, and control infrastructure, with R&D programs covering gigawatt-scale AI factory design across Europe and beyond.",
+        "url": "https://www.se.com/us/en/about-us/newsroom/news/press-releases/schneider-electric-accelerates-the-development-and-deployment-of-ai-factories-at-scale-with-nvidia-684989e2ba4801b85e069b2b"
+      },
+      {
+        "date": "2025-10-06",
+        "type": "product-launch",
+        "headline": "Schneider Electric GB300 NVL72 reference design integrates power and liquid cooling at 142kW/rack",
+        "description": "Schneider Electric releases new reference designs for NVIDIA GB300 NVL72 deployments featuring integrated power management and liquid cooling controls (via Motivair CDUs), supporting up to 142kW per rack density.",
+        "url": "https://www.businesswire.com/news/home/20251006074939/en/Schneider-Electric-unveils-new-AI-data-centre-reference-designs-with-NVIDIA"
+      }
+    ]
   },
   {
     "id": "indosat",
@@ -381,7 +958,26 @@
     "last_confirmed": "2025-07-16",
     "status": "active",
     "confidence": "high",
-    "notes": "sovereign-ai/telecom subtype. Sahabat-AI (Nvidia NeMo, Llama 3 fine-tuned for Bahasa Indonesian) launched November 2024 with Jensen Huang present. AI CoE with full-stack Nvidia Blackwell infrastructure launched July 2025. Indosat is named as primary telecom/sovereign partner."
+    "notes": "sovereign-ai/telecom subtype. Sahabat-AI (Nvidia NeMo, Llama 3 fine-tuned for Bahasa Indonesian) launched November 2024 with Jensen Huang present. AI CoE with full-stack Nvidia Blackwell infrastructure launched July 2025. Indosat is named as primary telecom/sovereign partner.",
+    "significance_tier": "significant",
+    "significance_narrative": "Nvidia is the technology backbone of Indonesia's sovereign AI strategy, with Indosat as the primary delivery vehicle. GPU Merdeka (Nvidia-powered AI cloud) and the national AI CoE position Indosat as Indonesia's AI infrastructure leader, transforming its telecom model.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2024-11-01",
+        "type": "establishment",
+        "headline": "Indosat and Nvidia launch Sahabat-AI, Indonesia's first sovereign AI platform",
+        "description": "Indosat and Nvidia launch Sahabat-AI at Indonesia AI Day 2024 — a Bahasa Indonesian-optimized LLM built on NVIDIA NeMo and fine-tuned from Llama 3, with Jensen Huang personally attending the announcement.",
+        "url": "https://blogs.nvidia.com/blog/indonesia-tech-leaders-sovereign-ai/"
+      },
+      {
+        "date": "2025-07-16",
+        "type": "expansion",
+        "headline": "Indonesia AI Center of Excellence launched with full-stack Nvidia Blackwell infrastructure",
+        "description": "Indosat, Cisco, and Nvidia establish Indonesia's national AI Center of Excellence with full-stack NVIDIA Blackwell GPUs, NVIDIA AI Enterprise software, and GPU Merdeka sovereign AI cloud service reaching 28 ISVs and startups.",
+        "url": "https://blogs.nvidia.com/blog/indonesia-ai-center-of-excellence/"
+      }
+    ]
   },
   {
     "id": "humain",
@@ -397,7 +993,26 @@
     "last_confirmed": "2025-11-01",
     "status": "active",
     "confidence": "high",
-    "notes": "sovereign-ai subtype. Official Nvidia Newsroom press release and investor.nvidia.com confirmation. HUMAIN is the AI subsidiary of Saudi Arabia's Public Investment Fund. November 2025 expansion to 600,000 GPUs confirmed. Jensen Huang named HUMAIN three times on earnings call."
+    "notes": "sovereign-ai subtype. Official Nvidia Newsroom press release and investor.nvidia.com confirmation. HUMAIN is the AI subsidiary of Saudi Arabia's Public Investment Fund. November 2025 expansion to 600,000 GPUs confirmed. Jensen Huang named HUMAIN three times on earnings call.",
+    "significance_tier": "core",
+    "significance_narrative": "HUMAIN's entire business is Nvidia infrastructure — deploying 600,000 Nvidia GPUs in Saudi Arabia and the US, making it one of the largest sovereign AI build-outs globally. Nvidia's success in the Middle East sovereign AI market flows directly through this partnership.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2025-05-13",
+        "type": "establishment",
+        "headline": "HUMAIN and Nvidia announce strategic AI factory partnership for Saudi Arabia",
+        "description": "Saudi Arabia's PIF-owned AI subsidiary partners with Nvidia to deploy 18,000 GB300 Grace Blackwell supercomputers with InfiniBand, building a 500MW AI factory as Saudi Arabia's flagship sovereign AI infrastructure.",
+        "url": "https://nvidianews.nvidia.com/news/humain-and-nvidia-announce-strategic-partnership-to-build-ai-factories-of-the-future-in-saudi-arabia"
+      },
+      {
+        "date": "2025-11-19",
+        "type": "expansion",
+        "headline": "HUMAIN scales to 600,000 Nvidia GPUs with xAI and AWS as anchor customers",
+        "description": "At the US-Saudi Investment Forum, HUMAIN announces a 3-year 600,000-GPU expansion: xAI as first customer for the 500MW Saudi facility, AWS deploying 150,000 GPUs in a dedicated AI Zone in Riyadh, and Global AI for US data centers.",
+        "url": "https://www.prnewswire.com/news-releases/humain-expands-strategic-partnership-with-nvidia-advancing-global-ai-infrastructure-with-xai-global-ai-and-aws-at-the-us-saudi-investment-forum-302620854.html"
+      }
+    ]
   },
   {
     "id": "coreweave-investment",
@@ -413,7 +1028,26 @@
     "last_confirmed": "2026-01-26",
     "status": "active",
     "confidence": "high",
-    "notes": "Equity investment with named technology and commercial collaboration: $2B at $87.20/share, 11.5% ownership. $6.3B capacity guarantee through April 2032. Early Rubin and Vera CPU adoption named. Also tracked as cloud entry (id: coreweave). This entry captures the investment dimension."
+    "notes": "Equity investment with named technology and commercial collaboration: $2B at $87.20/share, 11.5% ownership. $6.3B capacity guarantee through April 2032. Early Rubin and Vera CPU adoption named. Also tracked as cloud entry (id: coreweave). This entry captures the investment dimension.",
+    "significance_tier": "core",
+    "significance_narrative": "Nvidia's $2B equity stake and $6.3B capacity guarantee through 2032 are foundational to CoreWeave's financial structure; Nvidia is simultaneously cornerstone investor and sole-source GPU supplier for CoreWeave's entire business.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2023-04-20",
+        "type": "establishment",
+        "headline": "Nvidia participates in CoreWeave $221M Series B as strategic equity investor",
+        "description": "CoreWeave raises $221M in its Series B with Nvidia as a strategic equity participant, cementing Nvidia's financial stake in its largest AI cloud customer.",
+        "url": "https://techcrunch.com/2023/04/20/coreweave-a-gpu-focused-cloud-compute-provider-lands-221m-investment/"
+      },
+      {
+        "date": "2026-01-26",
+        "type": "investment",
+        "headline": "Nvidia deepens to $2B stake with $6.3B capacity guarantee through 2032",
+        "description": "Nvidia invests $2B at $87.20/share (11.5% ownership) in CoreWeave's post-IPO raise, paired with a $6.3B capacity guarantee securing CoreWeave as exclusive early adopter of Rubin, Vera CPU, and BlueField platforms.",
+        "url": "https://investors.coreweave.com/news/news-details/2026/NVIDIA-and-CoreWeave-Strengthen-Collaboration-to-Accelerate-Buildout-of-AI-Factories/default.aspx"
+      }
+    ]
   },
   {
     "id": "nebius-investment",
@@ -429,7 +1063,26 @@
     "last_confirmed": "2026-03-11",
     "status": "active",
     "confidence": "high",
-    "notes": "Equity investment with named technology collaboration. Official Nvidia Newsroom press release. $2B investment plus early Rubin platform access, AI factory design support, fleet management, and inference stack co-development. Also tracked as cloud entry (id: nebius). This entry captures the investment dimension."
+    "notes": "Equity investment with named technology collaboration. Official Nvidia Newsroom press release. $2B investment plus early Rubin platform access, AI factory design support, fleet management, and inference stack co-development. Also tracked as cloud entry (id: nebius). This entry captures the investment dimension.",
+    "significance_tier": "core",
+    "significance_narrative": "Nvidia's $2B investment and deep full-stack AI cloud partnership give Nebius early access to Rubin-generation hardware and co-development support, making Nvidia the strategic cornerstone of Nebius's infrastructure and growth trajectory.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2024-12-02",
+        "type": "establishment",
+        "headline": "Nvidia joins $700M strategic equity round in Nebius Group",
+        "description": "Nebius raises $700M with Nvidia as a strategic investor, establishing the equity relationship alongside Nebius's build-out of GPU-dense AI cloud infrastructure.",
+        "url": "https://techcrunch.com/2024/12/02/european-ai-infrastructure-company-nebius-nabs-700m-from-nvidia-accel-others/"
+      },
+      {
+        "date": "2026-03-11",
+        "type": "investment",
+        "headline": "Nvidia scales to $2B investment with full-stack AI cloud partnership",
+        "description": "Nvidia invests $2B in Nebius, granting early access to the Rubin platform, AI factory design support, fleet management co-development, and inference stack engineering collaboration.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-and-nebius-partner-to-scale-full-stack-ai-cloud"
+      }
+    ]
   },
   {
     "id": "marvell-investment",
@@ -445,6 +1098,18 @@
     "last_confirmed": "2026-03-31",
     "status": "active",
     "confidence": "high",
-    "notes": "Equity investment with named technology collaboration: $2B plus NVLink Fusion custom XPU, scale-up networking, AI-RAN 5G/6G, and silicon photonics. Official Nvidia Newsroom press release. Also tracked as interconnect entry (id: marvell). This entry captures the investment dimension."
+    "notes": "Equity investment with named technology collaboration: $2B plus NVLink Fusion custom XPU, scale-up networking, AI-RAN 5G/6G, and silicon photonics. Official Nvidia Newsroom press release. Also tracked as interconnect entry (id: marvell). This entry captures the investment dimension.",
+    "significance_tier": "significant",
+    "significance_narrative": "Nvidia's $2B equity investment in Marvell cements the NVLink Fusion custom silicon partnership at the corporate level, signaling Marvell's role as a long-term ecosystem anchor for Nvidia's scale-up networking strategy.",
+    "significance_reviewed_at": "2026-05-02",
+    "milestones": [
+      {
+        "date": "2026-03-31",
+        "type": "establishment",
+        "headline": "Nvidia invests $2B in Marvell to anchor NVLink Fusion custom silicon ecosystem",
+        "description": "Nvidia makes a $2B equity investment in Marvell alongside naming it a key NVLink Fusion ecosystem partner, encompassing custom XPUs, scale-up networking, AI-RAN 5G/6G, and silicon photonics.",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-ai-ecosystem-expands-as-marvell-joins-forces-through-nvlink-fusion"
+      }
+    ]
   }
 ]
