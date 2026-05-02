@@ -31,6 +31,18 @@ export function sortByLastConfirmed(rels: Relationship[]): Relationship[] {
   return [...rels].sort((a, b) => b.last_confirmed.localeCompare(a.last_confirmed));
 }
 
+export function sortByLatestMilestone(rels: Relationship[]): Relationship[] {
+  // Most recently active partnerships first. Falls back to last_confirmed
+  // if a partner has no milestones (shouldn't happen post-seed, but defensive).
+  const keyFor = (r: Relationship): string => {
+    if (r.milestones && r.milestones.length > 0) {
+      return r.milestones.reduce((acc, m) => (m.date > acc ? m.date : acc), '');
+    }
+    return r.last_confirmed;
+  };
+  return [...rels].sort((a, b) => keyFor(b).localeCompare(keyFor(a)));
+}
+
 export function latestMilestone(milestones: Milestone[]): Milestone | null {
   if (milestones.length === 0) return null;
   return [...milestones].sort((a, b) => b.date.localeCompare(a.date))[0];

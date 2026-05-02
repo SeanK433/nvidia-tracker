@@ -352,7 +352,7 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
         msSection.style.display = '';
         msList.innerHTML = recent.map((m: { date: string; type: string; headline: string }) => `
           <div class="hover-card-ms-row">
-            <div class="hover-card-ms-meta">${m.date}<span class="ms-type">${m.type.replace('-', ' ')}</span></div>
+            <div class="hover-card-ms-meta">${m.date} · <span class="ms-type">${m.type.replace('-', ' ')}</span></div>
             <div class="hover-card-ms-headline">${m.headline}</div>
           </div>
         `).join('');

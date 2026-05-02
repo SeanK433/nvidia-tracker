@@ -36,7 +36,7 @@ const sorted = [...milestones].sort((a, b) => a.date.localeCompare(b.date));
 }
 
 .ms-entry {
-  padding: var(--space-4) 0 var(--space-4) var(--space-5);
+  padding: var(--space-4) 0 var(--space-6) var(--space-5);
   position: relative;
 }
 
@@ -55,7 +55,7 @@ const sorted = [...milestones].sort((a, b) => a.date.localeCompare(b.date));
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .ms-type {
@@ -78,14 +78,15 @@ const sorted = [...milestones].sort((a, b) => a.date.localeCompare(b.date));
   font-style: italic;
   font-size: var(--size-base);
   color: var(--ink);
-  margin-bottom: var(--space-1);
+  line-height: 1.4;
+  margin-bottom: var(--space-2);
 }
 
 .ms-description {
   font-size: var(--size-sm);
-  color: var(--ink);
-  line-height: 1.5;
-  margin: var(--space-1) 0 var(--space-2);
+  color: var(--ink-muted);
+  line-height: 1.55;
+  margin: 0 0 var(--space-3);
 }
 
 .ms-link {

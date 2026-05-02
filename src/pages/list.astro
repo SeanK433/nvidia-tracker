@@ -3,10 +3,10 @@ export const prerender = true;
 
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import { loadRelationships } from '~/lib/data';
-import { filterActive, sortByPartner } from '~/lib/filters';
+import { filterActive, sortByLatestMilestone } from '~/lib/filters';
 
 const all = loadRelationships();
-const active = sortByPartner(filterActive(all));
+const active = sortByLatestMilestone(filterActive(all));
 const totalCount = all.length;
 const activeCount = active.length;
 
