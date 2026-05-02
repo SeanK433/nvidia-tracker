@@ -1,8 +1,7 @@
 ---
-// src/pages/partners/[id].astro
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Logo from '~/components/Logo.astro';
-import EvidenceTimeline from '~/components/EvidenceTimeline.astro';
+import MilestoneTimeline from '~/components/MilestoneTimeline.astro';
 import { loadRelationships } from '~/lib/data';
 import type { Relationship } from '~/lib/schema';
 
@@ -21,6 +20,10 @@ interface Props {
 }
 
 const { rel } = Astro.props;
+const tier = rel.significance_tier ?? 'significant';
+const milestones = rel.milestones ?? [];
+const establishment = milestones.find(m => m.type === 'establishment');
+const establishedDate = establishment?.date ?? rel.first_announced ?? rel.last_confirmed;
 ---
 <BaseLayout title={rel.partner} description={rel.purpose} pathname="">
   <article class="wrap-narrow" style="padding-top: var(--space-8); padding-bottom: var(--space-16);">
@@ -32,11 +35,17 @@ const { rel } = Astro.props;
       <div class="partner-meta">
         <span class={`cat-badge cat-${rel.category}`}>{rel.category}</span>
         <span class="separator">·</span>
-        <span class={`status-badge status-${rel.status}`}>{rel.status}</span>
+        <span class={`tier-badge tier-${tier}`}>{tier}</span>
         <span class="separator">·</span>
-        <span class="confidence">{rel.confidence} confidence</span>
+        <span class={`status-badge status-${rel.status}`}>{rel.status}</span>
       </div>
     </header>
+
+    {rel.significance_narrative && (
+      <section class="partner-significance">
+        <p>{rel.significance_narrative}</p>
+      </section>
+    )}
 
     <section class="partner-purpose">
       <p>{rel.purpose}</p>
@@ -49,24 +58,21 @@ const { rel } = Astro.props;
       </section>
     )}
 
-    <section class="partner-evidence">
-      <h2>Evidence</h2>
-      {rel.evidence_history.length === 0 ? (
-        <p class="muted">
-          <a href={rel.evidence_url} rel="noopener noreferrer" target="_blank">
-            {new URL(rel.evidence_url).hostname}
-          </a>
-          <span class="muted"> — {rel.last_confirmed}</span>
-        </p>
+    <section class="partner-milestones">
+      <h2>Milestones</h2>
+      {milestones.length === 0 ? (
+        <p class="muted">No milestones recorded.</p>
       ) : (
-        <EvidenceTimeline evidence_history={rel.evidence_history} />
+        <MilestoneTimeline milestones={milestones} />
       )}
     </section>
 
     <footer class="partner-footer muted">
-      <span>First announced: {rel.first_announced}</span>
+      <span>Established: {establishedDate}</span>
       <span class="separator">·</span>
       <span>Last confirmed: {rel.last_confirmed}</span>
+      <span class="separator">·</span>
+      <span>{rel.confidence} confidence</span>
     </footer>
   </article>
 </BaseLayout>
@@ -84,7 +90,7 @@ const { rel } = Astro.props;
 
 .partner-header {
   text-align: center;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .partner-name {
@@ -112,10 +118,30 @@ const { rel } = Astro.props;
 .cat-interconnect  { color: var(--cat-interconnect); }
 .cat-investment    { color: var(--cat-investment); }
 
+.tier-badge { font-style: italic; }
+.tier-core         { color: var(--ink); font-weight: 600; font-style: normal; }
+.tier-significant  { color: var(--ink); font-style: normal; }
+.tier-ancillary    { color: var(--ink-muted); font-style: normal; }
+
 .status-badge { font-style: italic; }
 .status-active   { color: var(--ink); }
 .status-dormant  { color: var(--ink-muted); }
 .status-ended    { color: var(--ink-muted); text-decoration: line-through; }
+
+.partner-significance {
+  margin: var(--space-6) 0 var(--space-6);
+}
+
+.partner-significance p {
+  font-size: var(--size-base);
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--ink);
+  text-align: center;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
 
 .partner-purpose p {
   font-size: var(--size-lg);
@@ -125,7 +151,7 @@ const { rel } = Astro.props;
 }
 
 .partner-notes,
-.partner-evidence {
+.partner-milestones {
   margin: var(--space-8) 0;
 }
 
