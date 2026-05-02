@@ -1,4 +1,4 @@
-import type { Relationship, Category, Confidence } from './schema';
+import type { Relationship, Category, Confidence, Milestone } from './schema';
 
 export function filterActive(rels: Relationship[]): Relationship[] {
   return rels.filter((r) => r.status === 'active');
@@ -29,4 +29,15 @@ export function sortByPartner(rels: Relationship[]): Relationship[] {
 
 export function sortByLastConfirmed(rels: Relationship[]): Relationship[] {
   return [...rels].sort((a, b) => b.last_confirmed.localeCompare(a.last_confirmed));
+}
+
+export function latestMilestone(milestones: Milestone[]): Milestone | null {
+  if (milestones.length === 0) return null;
+  return [...milestones].sort((a, b) => b.date.localeCompare(a.date))[0];
+}
+
+export function recentMilestonesForHover(milestones: Milestone[]): Milestone[] {
+  return [...milestones]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 2);
 }

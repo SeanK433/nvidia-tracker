@@ -5,9 +5,11 @@ import {
   filterByConfidence,
   groupByCategory,
   sortByPartner,
-  sortByLastConfirmed
+  sortByLastConfirmed,
+  latestMilestone,
+  recentMilestonesForHover
 } from '../src/lib/filters';
-import type { Relationship } from '../src/lib/schema';
+import type { Relationship, Milestone } from '../src/lib/schema';
 
 const sample: Relationship[] = [
   {
@@ -69,5 +71,54 @@ describe('sortByPartner', () => {
 describe('sortByLastConfirmed', () => {
   it('sorts by last_confirmed descending (most recent first)', () => {
     expect(sortByLastConfirmed(sample).map(r => r.id)).toEqual(['tsmc', 'nebius', 'old-corp']);
+  });
+});
+
+const ms = (date: string, type: Milestone['type'], headline: string): Milestone => ({
+  date,
+  type,
+  headline,
+  description: 'desc',
+  url: 'https://example.com'
+});
+
+describe('latestMilestone', () => {
+  it('returns the most recent milestone by date', () => {
+    const milestones = [
+      ms('2020-01-01', 'establishment', 'Start'),
+      ms('2024-06-15', 'expansion', 'Mid'),
+      ms('2025-12-10', 'expansion', 'Latest')
+    ];
+    expect(latestMilestone(milestones)?.headline).toBe('Latest');
+  });
+
+  it('returns null for empty array', () => {
+    expect(latestMilestone([])).toBe(null);
+  });
+
+  it('returns the only entry for length-1 arrays', () => {
+    const only = [ms('2020-01-01', 'establishment', 'Only')];
+    expect(latestMilestone(only)?.headline).toBe('Only');
+  });
+});
+
+describe('recentMilestonesForHover', () => {
+  it('returns up to 2 most recent milestones', () => {
+    const milestones = [
+      ms('2020-01-01', 'establishment', 'Start'),
+      ms('2024-06-15', 'expansion', 'Mid'),
+      ms('2025-12-10', 'expansion', 'Latest')
+    ];
+    const recent = recentMilestonesForHover(milestones);
+    expect(recent.map(m => m.headline)).toEqual(['Latest', 'Mid']);
+  });
+
+  it('returns establishment as fallback when only 1 milestone exists', () => {
+    const only = [ms('2020-01-01', 'establishment', 'Only')];
+    expect(recentMilestonesForHover(only).map(m => m.headline)).toEqual(['Only']);
+  });
+
+  it('returns empty array for empty input', () => {
+    expect(recentMilestonesForHover([])).toEqual([]);
   });
 });
