@@ -36,15 +36,19 @@ const sorted = [...milestones].sort((a, b) => a.date.localeCompare(b.date));
 }
 
 .ms-entry {
-  padding: var(--space-4) 0 var(--space-6) var(--space-5);
+  padding: var(--space-2) 0 var(--space-8) var(--space-6);
   position: relative;
+}
+
+.ms-entry:last-child {
+  padding-bottom: var(--space-2);
 }
 
 .ms-entry::before {
   content: "";
   position: absolute;
   left: -4px;
-  top: var(--space-5);
+  top: var(--space-3);
   width: 7px;
   height: 7px;
   border-radius: 50%;
