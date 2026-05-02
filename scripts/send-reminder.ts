@@ -3,9 +3,9 @@ import { execSync } from 'node:child_process';
 import { readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { Resend } from 'resend';
-import { parseExtractionDate, daysSince } from './lib/extraction-status';
+import { parseExtractionDate, daysSince, countPartnersNeedingSignificanceReview } from './lib/extraction-status';
 import { RawFileSchema } from '../src/lib/schema';
-import { loadPending } from '../src/lib/data';
+import { loadPending, loadRelationships } from '../src/lib/data';
 
 const REPO_ROOT = resolve(import.meta.dirname, '..');
 const RAW_DIR = resolve(REPO_ROOT, 'raw');
@@ -30,18 +30,31 @@ function countNewArticlesSince(since: Date | null): number {
   return count;
 }
 
-function buildEmailBody(daysSinceLast: number | null, newArticles: number, pendingCount: number): string {
+function buildEmailBody(
+  daysSinceLast: number | null,
+  newArticles: number,
+  pendingCount: number,
+  partnersNeedingReview: number
+): string {
   const stale = daysSinceLast === null
     ? "You haven't run an extraction yet."
     : `It's been ${daysSinceLast} day${daysSinceLast === 1 ? '' : 's'} since your last extraction.`;
 
-  return [
-    stale,
-    `New articles: ${newArticles}`,
-    `Pending review queue: ${pendingCount}`,
+  const lines = [
+    'Sunday maintenance — NVIDIA Tracker',
     '',
-    'Open Claude Code in the project folder and run /extract when you\'re ready.'
-  ].join('\n');
+    stale,
+    '',
+    `/extract:               ${newArticles} new article${newArticles === 1 ? '' : 's'} since last extraction`,
+    `/review-significance:    ${partnersNeedingReview} partner${partnersNeedingReview === 1 ? '' : 's'} with new milestones since last review`,
+  ];
+
+  if (pendingCount > 0) {
+    lines.push(`Pending review queue:    ${pendingCount}`);
+  }
+
+  lines.push('', 'Open Claude Code in the project folder and run /extract and /review-significance when ready.');
+  return lines.join('\n');
 }
 
 async function main() {
@@ -57,9 +70,16 @@ async function main() {
   const days = last ? daysSince(last) : null;
   const newCount = countNewArticlesSince(last);
   const pending = loadPending().length;
+  const needReview = countPartnersNeedingSignificanceReview(loadRelationships());
 
-  const body = buildEmailBody(days, newCount, pending);
-  const subject = `NVIDIA Tracker — ${newCount} articles ready for review`;
+  // Short-circuit: nothing to do, no email.
+  if (newCount === 0 && needReview === 0 && pending === 0) {
+    console.log('No maintenance work pending — skipping email.');
+    return;
+  }
+
+  const body = buildEmailBody(days, newCount, pending, needReview);
+  const subject = `NVIDIA Tracker — ${newCount} articles + ${needReview} partners ready for review`;
 
   console.log('Email body:\n' + body);
 
