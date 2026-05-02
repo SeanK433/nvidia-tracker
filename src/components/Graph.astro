@@ -321,10 +321,11 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
 
   cy.on('mouseover', 'node[kind="partner"]', (evt) => {
     const node = evt.target;
-    cy.elements().addClass('dimmed');
+    // Dim only OTHER partners. Trunk edges, category labels, and the NVIDIA
+    // center stay at their natural opacity so the cluster scaffolding doesn't
+    // flicker while cycling between partners.
+    cy.nodes('node[kind="partner"]').addClass('dimmed');
     node.removeClass('dimmed').addClass('highlighted');
-    node.connectedEdges().removeClass('dimmed').addClass('highlighted');
-    cy.getElementById('nvidia').removeClass('dimmed').addClass('highlighted');
 
     const data = node.data();
     hoverLogo.src = data.logo;
