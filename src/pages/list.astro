@@ -29,21 +29,37 @@ const categories = ['silicon', 'interconnect', 'cloud', 'software', 'vertical', 
         <tr>
           <th class="th-partner">Partner</th>
           <th class="th-category">Category</th>
+          <th class="th-significance">Significance</th>
           <th class="th-purpose">Purpose</th>
-          <th class="th-confirmed">Last confirmed</th>
-          <th class="th-confidence">Confidence</th>
+          <th class="th-milestone">Latest milestone</th>
         </tr>
       </thead>
       <tbody>
-        {active.map((r) => (
-          <tr data-category={r.category}>
-            <td class="td-partner"><a href={`/partners/${r.id}`}>{r.partner}</a></td>
-            <td class="td-category"><span class={`cat-badge cat-${r.category}`}>{r.category}</span></td>
-            <td class="td-purpose">{r.purpose}</td>
-            <td class="td-confirmed">{r.last_confirmed}</td>
-            <td class="td-confidence">{r.confidence}</td>
-          </tr>
-        ))}
+        {active.map((r) => {
+          const latest = r.milestones && r.milestones.length > 0
+            ? [...r.milestones].sort((a, b) => b.date.localeCompare(a.date))[0]
+            : null;
+          const tier = r.significance_tier ?? 'significant';
+          const truncated = latest && latest.headline.length > 60
+            ? latest.headline.slice(0, 57) + '...'
+            : latest?.headline ?? '—';
+          return (
+            <tr data-category={r.category}>
+              <td class="td-partner"><a href={`/partners/${r.id}`}>{r.partner}</a></td>
+              <td class="td-category"><span class={`cat-badge cat-${r.category}`}>{r.category}</span></td>
+              <td class="td-significance"><span class={`tier-${tier}`}>{tier}</span></td>
+              <td class="td-purpose">{r.purpose}</td>
+              <td class="td-milestone">
+                {latest ? (
+                  <>
+                    <span class="td-milestone-date">{latest.date}</span>{' '}
+                    <span class="td-milestone-headline">{truncated}</span>
+                  </>
+                ) : '—'}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   </div>
@@ -129,6 +145,21 @@ const categories = ['silicon', 'interconnect', 'cloud', 'software', 'vertical', 
 .td-purpose {
   max-width: 380px;
   color: var(--ink-muted);
+}
+
+.td-significance .tier-core      { font-style: italic; color: var(--ink); font-weight: 600; }
+.td-significance .tier-significant { font-style: italic; color: var(--ink); }
+.td-significance .tier-ancillary { font-style: italic; color: var(--ink-muted); }
+
+.td-milestone {
+  font-size: var(--size-xs);
+  color: var(--ink);
+  max-width: 280px;
+}
+.td-milestone-date {
+  color: var(--ink-muted);
+  font-style: italic;
+  font-variant-numeric: tabular-nums;
 }
 </style>
 
