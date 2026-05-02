@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { RelationshipSchema, PendingProposalSchema, ArticleSchema, RawFileSchema } from '../src/lib/schema';
+import {
+  RelationshipSchema,
+  PendingProposalSchema,
+  ArticleSchema,
+  RawFileSchema,
+  MilestoneSchema,
+  SignificanceTierSchema
+} from '../src/lib/schema';
 
 describe('RelationshipSchema', () => {
   it('accepts a valid relationship', () => {
@@ -112,5 +119,98 @@ describe('RawFileSchema', () => {
       ]
     };
     expect(() => RawFileSchema.parse(valid)).not.toThrow();
+  });
+});
+
+describe('MilestoneSchema', () => {
+  const valid = {
+    date: '2025-12-10',
+    type: 'expansion' as const,
+    headline: '60% of CoWoS capacity secured through 2026-27',
+    description: 'TSMC reserved the bulk of advanced packaging capacity for Nvidia products.',
+    url: 'https://example.com/article'
+  };
+
+  it('accepts a valid milestone', () => {
+    expect(() => MilestoneSchema.parse(valid)).not.toThrow();
+  });
+
+  it('rejects invalid type', () => {
+    expect(() => MilestoneSchema.parse({ ...valid, type: 'bogus' })).toThrow();
+  });
+
+  it('rejects headline > 100 chars', () => {
+    expect(() => MilestoneSchema.parse({ ...valid, headline: 'x'.repeat(101) })).toThrow();
+  });
+
+  it('rejects description > 300 chars', () => {
+    expect(() => MilestoneSchema.parse({ ...valid, description: 'x'.repeat(301) })).toThrow();
+  });
+
+  it('rejects malformed date', () => {
+    expect(() => MilestoneSchema.parse({ ...valid, date: '2025/12/10' })).toThrow();
+  });
+
+  it('rejects non-URL source', () => {
+    expect(() => MilestoneSchema.parse({ ...valid, url: 'not-a-url' })).toThrow();
+  });
+});
+
+describe('SignificanceTierSchema', () => {
+  it('accepts core, significant, ancillary', () => {
+    expect(() => SignificanceTierSchema.parse('core')).not.toThrow();
+    expect(() => SignificanceTierSchema.parse('significant')).not.toThrow();
+    expect(() => SignificanceTierSchema.parse('ancillary')).not.toThrow();
+  });
+
+  it('rejects other values', () => {
+    expect(() => SignificanceTierSchema.parse('high')).toThrow();
+  });
+});
+
+describe('RelationshipSchema with optional new fields', () => {
+  const base = {
+    id: 'tsmc',
+    partner: 'TSMC',
+    category: 'silicon' as const,
+    purpose: 'Foundry partnership',
+    evidence_quote: 'q',
+    evidence_url: 'https://example.com',
+    evidence_history: [],
+    first_announced: '2020-01-01',
+    last_confirmed: '2026-04-15',
+    status: 'active' as const,
+    confidence: 'high' as const,
+    notes: ''
+  };
+
+  it('accepts a relationship with no new fields (backward compat)', () => {
+    expect(() => RelationshipSchema.parse(base)).not.toThrow();
+  });
+
+  it('accepts a relationship with new fields populated', () => {
+    const enriched = {
+      ...base,
+      significance_tier: 'core',
+      significance_narrative: 'TSMC is the sole leading-edge foundry for Nvidia GPUs; this relationship is core to TSMC\'s revenue growth.',
+      significance_reviewed_at: '2026-05-02',
+      milestones: [
+        {
+          date: '2020-01-01',
+          type: 'establishment',
+          headline: 'TSMC selected as Nvidia foundry partner',
+          description: 'TSMC began producing Nvidia leading-edge GPUs.',
+          url: 'https://example.com/tsmc-establishment'
+        }
+      ]
+    };
+    expect(() => RelationshipSchema.parse(enriched)).not.toThrow();
+  });
+
+  it('rejects significance_narrative > 280 chars', () => {
+    expect(() => RelationshipSchema.parse({
+      ...base,
+      significance_narrative: 'x'.repeat(281)
+    })).toThrow();
   });
 });

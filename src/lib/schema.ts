@@ -18,6 +18,28 @@ export const EvidenceEntrySchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'date must be YYYY-MM-DD')
 });
 
+export const MilestoneTypeSchema = z.enum([
+  'establishment',
+  'expansion',
+  'investment',
+  'product-launch',
+  'customer-win'
+]);
+
+export const MilestoneSchema = z.object({
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'date must be YYYY-MM-DD'),
+  type: MilestoneTypeSchema,
+  headline: z.string().min(1).max(100),
+  description: z.string().min(1).max(300),
+  url: z.string().url()
+});
+
+export type Milestone = z.infer<typeof MilestoneSchema>;
+export type MilestoneType = z.infer<typeof MilestoneTypeSchema>;
+
+export const SignificanceTierSchema = z.enum(['core', 'significant', 'ancillary']);
+export type SignificanceTier = z.infer<typeof SignificanceTierSchema>;
+
 export const RelationshipSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/, 'id must be lowercase slug'),
   partner: z.string().min(1),
@@ -30,7 +52,13 @@ export const RelationshipSchema = z.object({
   last_confirmed: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   status: StatusSchema,
   confidence: ConfidenceSchema,
-  notes: z.string()
+  notes: z.string(),
+  // New milestones + significance fields. OPTIONAL during Phase 1 migration;
+  // become REQUIRED after /seed-milestones runs and Phase 4 cleanup tightens the schema.
+  significance_tier: SignificanceTierSchema.optional(),
+  significance_narrative: z.string().min(1).max(280).optional(),
+  significance_reviewed_at: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  milestones: z.array(MilestoneSchema).optional()
 });
 
 export type Relationship = z.infer<typeof RelationshipSchema>;
