@@ -346,33 +346,6 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     });
   });
 
-  // Ambient drift: each partner node oscillates by ±6px around its initial anchor position.
-  // Anchored so the cluster shape is preserved no matter how long the page sits idle.
-  let driftPaused = false;
-  cy.on('mouseover', 'node', () => { driftPaused = true; });
-  cy.on('mouseout', 'node', () => { driftPaused = false; });
-
-  const driftAnchors: Record<string, { x: number; y: number }> = {};
-  cy.nodes('node[kind="partner"]').forEach((n) => {
-    const id = n.id();
-    const pos = n.position();
-    driftAnchors[id] = { x: pos.x, y: pos.y };
-  });
-
-  setInterval(() => {
-    if (driftPaused) return;
-    cy.nodes('node[kind="partner"]').forEach((n) => {
-      const id = n.id();
-      const anchor = driftAnchors[id];
-      if (!anchor) return;
-      const offsetX = (Math.random() - 0.5) * 6;
-      const offsetY = (Math.random() - 0.5) * 6;
-      n.animate({
-        position: { x: anchor.x + offsetX, y: anchor.y + offsetY }
-      }, { duration: 2400, easing: 'ease-in-out' });
-    });
-  }, 2500);
-
   // ============================================================
   // HTML <img> overlay layer for partner logos.
   // Cytoscape's background-fit:contain misbehaves on SVGs with
