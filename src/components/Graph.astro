@@ -51,13 +51,17 @@ const elements = [
       kind: 'partner',
       category: r.category,
       confidence: r.confidence,
-      evidenceCount: Math.max(1, r.evidence_history.length),
+      milestoneCount: r.milestones?.length ?? 1,
       logo: `/logos/${r.id}.svg`,
       hasLogo: partnerHasLogo(r.id),
       logoAspect: getLogoAspect(r.id),
       partner: r.partner,
       purpose: r.purpose,
-      lastConfirmed: r.last_confirmed
+      tier: r.significance_tier ?? 'significant',
+      recentMilestones: (r.milestones ?? [])
+        .slice()
+        .sort((a, b) => b.date.localeCompare(a.date))
+        .slice(0, 2)
     }
   })),
   ...CATEGORIES.map((c) => ({
@@ -265,11 +269,11 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
           'border-width': 0,
           'label': '',
           'width': (ele: cytoscape.NodeSingular) => {
-            const baseHeight = 18 + Math.min(ele.data('evidenceCount'), 10) * 2;
+            const baseHeight = 18 + Math.min(ele.data('milestoneCount'), 10) * 2;
             const aspect = ele.data('logoAspect') ?? 1.85;
             return Math.min(100, Math.max(28, baseHeight * aspect));
           },
-          'height': (ele: cytoscape.NodeSingular) => 18 + Math.min(ele.data('evidenceCount'), 10) * 2
+          'height': (ele: cytoscape.NodeSingular) => 18 + Math.min(ele.data('milestoneCount'), 10) * 2
         }
       },
       {
@@ -331,8 +335,29 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     hoverLogo.src = data.logo;
     hoverLogo.alt = data.partner;
     hoverName.textContent = data.partner;
-    hoverMeta.textContent = `${data.category} · ${data.evidenceCount} confirmation${data.evidenceCount === 1 ? '' : 's'}`;
+
+    const tier = data.tier ?? 'significant';
+    hoverMeta.innerHTML = `${data.category} · <span class="tier-${tier}">${tier}</span>`;
+
     hoverPurpose.textContent = data.purpose;
+
+    // Populate the milestones section. Hide if no recent milestones available.
+    const msList = document.getElementById('hover-card-ms-list');
+    const msSection = document.getElementById('hover-card-milestones');
+    if (msList && msSection) {
+      const recent = data.recentMilestones ?? [];
+      if (recent.length === 0) {
+        msSection.style.display = 'none';
+      } else {
+        msSection.style.display = '';
+        msList.innerHTML = recent.map((m: { date: string; type: string; headline: string }) => `
+          <div class="hover-card-ms-row">
+            <div class="hover-card-ms-meta">${m.date}<span class="ms-type">${m.type.replace('-', ' ')}</span></div>
+            <div class="hover-card-ms-headline">${m.headline}</div>
+          </div>
+        `).join('');
+      }
+    }
 
     // Position the card so it doesn't open off-screen.
     // Right third of canvas: open LEFT (card sits to the left of cursor).
