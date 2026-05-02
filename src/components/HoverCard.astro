@@ -9,6 +9,10 @@
     <div class="hover-card-name" id="hover-card-name"></div>
     <div class="hover-card-meta" id="hover-card-meta"></div>
     <div class="hover-card-purpose" id="hover-card-purpose"></div>
+    <div class="hover-card-milestones" id="hover-card-milestones">
+      <div class="hover-card-ms-label">Latest milestones</div>
+      <div id="hover-card-ms-list"></div>
+    </div>
   </div>
 </div>
 
@@ -19,7 +23,8 @@
   border: 1px solid var(--ink);
   border-radius: 4px;
   padding: var(--space-3);
-  width: 240px;
+  width: 260px;
+  max-width: 90vw;
   box-shadow: 0 4px 12px rgba(26, 22, 18, 0.12);
   font-size: var(--size-xs);
   pointer-events: none;
@@ -53,8 +58,48 @@
   margin-bottom: var(--space-2);
 }
 
+/* Tier styling within meta line */
+.hover-card-meta .tier-core      { color: var(--ink); font-weight: 600; font-style: normal; }
+.hover-card-meta .tier-significant { color: var(--ink); font-style: normal; }
+.hover-card-meta .tier-ancillary { color: var(--ink-muted); font-style: normal; }
+
 .hover-card-purpose {
   color: var(--ink);
   line-height: 1.4;
+  margin-bottom: var(--space-3);
+}
+
+.hover-card-milestones {
+  border-top: 1px solid var(--ink-faint);
+  padding-top: var(--space-2);
+}
+
+.hover-card-ms-label {
+  font-style: italic;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  font-size: 9.5px;
+  letter-spacing: 0.7px;
+  margin-bottom: var(--space-1);
+}
+
+.hover-card-ms-row {
+  margin-bottom: var(--space-1);
+}
+.hover-card-ms-row:last-child { margin-bottom: 0; }
+
+.hover-card-ms-meta {
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+
+.hover-card-ms-meta .ms-type {
+  font-style: italic;
+  margin-left: var(--space-1);
+}
+
+.hover-card-ms-headline {
+  color: var(--ink);
+  margin-top: 1px;
 }
 </style>
