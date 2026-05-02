@@ -147,19 +147,39 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
       const labelY = cy_ + extendDir * LABEL_OFFSET;
       positions[`label-${cat}`] = { x: clusterX, y: labelY };
 
-      // Place partners with multi-column overflow
+      // Balance partners into K columns: K=1 for n<=1, K=2 for n in [2..8],
+      // K=3 for n>=9. rowsPerCol = floor(n/K). Any leftover (0, 1, or 2)
+      // are orphans placed one row past the bulk on the outer side
+      // (away from NVIDIA). 1 orphan: centered at clusterX. 2 orphans:
+      // straddle clusterX at ±SUB_COL_SPACING/2.
       const items = grouped[cat] ?? [];
-      const numSubCols = Math.max(1, Math.ceil(items.length / MAX_ROWS));
+      const n = items.length;
+      const numSubCols = n <= 1 ? 1 : n <= 8 ? 2 : 3;
+      const rowsPerCol = Math.floor(n / numSubCols);
+      const bulkCount = numSubCols * rowsPerCol;
+      const numOrphans = n - bulkCount;
+      const orphanRowY = labelY + extendDir * (rowsPerCol + 1) * LOGO_SPACING;
 
       items.forEach((p: { data: { id: string } }, i: number) => {
-        const subColIdx = Math.floor(i / MAX_ROWS);
-        const rowIdx = i % MAX_ROWS;
-        const subColXOffset = (subColIdx - (numSubCols - 1) / 2) * SUB_COL_SPACING;
-        const partnerY = labelY + extendDir * (rowIdx + 1) * LOGO_SPACING;
-        positions[p.data.id] = {
-          x: clusterX + subColXOffset,
-          y: partnerY
-        };
+        if (i < bulkCount) {
+          const subColIdx = Math.floor(i / rowsPerCol);
+          const rowIdx = i % rowsPerCol;
+          const subColXOffset = (subColIdx - (numSubCols - 1) / 2) * SUB_COL_SPACING;
+          const partnerY = labelY + extendDir * (rowIdx + 1) * LOGO_SPACING;
+          positions[p.data.id] = {
+            x: clusterX + subColXOffset,
+            y: partnerY
+          };
+        } else {
+          const orphanIdx = i - bulkCount;
+          const orphanXOffset = numOrphans === 2
+            ? (orphanIdx === 0 ? -SUB_COL_SPACING / 2 : SUB_COL_SPACING / 2)
+            : 0;
+          positions[p.data.id] = {
+            x: clusterX + orphanXOffset,
+            y: orphanRowY
+          };
+        }
       });
     }
 
@@ -393,8 +413,7 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     'position: absolute',
     'object-fit: contain',
     'object-position: center',
-    'pointer-events: none',
-    'border-radius: 50%'
+    'pointer-events: none'
   ].join(';');
   overlayLayer.appendChild(nvOverlay);
 
