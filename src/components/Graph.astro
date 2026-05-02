@@ -110,7 +110,7 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     const positions: Record<string, { x: number; y: number }> = {};
 
     const cx = w / 2;
-    const cy_ = h / 2;
+    const cy_ = h * 0.56;
     positions.nvidia = { x: cx, y: cy_ };
 
     // 3 column x-positions across the canvas
@@ -190,24 +190,7 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
         style: {
           'shape': 'ellipse',
           'background-color': '#1a1612',
-          'background-image': 'data(logo)',
-          'background-fit': 'contain',
-          'background-clip': 'node',
           'background-opacity': 1,
-          'background-image-opacity': 1,
-          'background-image-containment': 'inside',
-          'background-width': '60%',
-          'background-height': '60%',
-          'background-position-y': '28%',
-          'label': 'NVIDIA',
-          'color': 'rgb(118,185,0)',
-          'font-family': 'Georgia, serif',
-          'font-style': 'italic',
-          'font-size': 14,
-          'font-weight': 400,
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'text-margin-y': 30,
           'width': 130,
           'height': 130,
           'border-width': 0
@@ -422,6 +405,20 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     overlayElements[node.id()] = img;
   });
 
+  // NVIDIA center node: also render logo as an HTML <img> overlay (same approach as partners).
+  // Cytoscape's canvas background-image for SVGs is unreliable on first paint.
+  const nvOverlay = document.createElement('img');
+  nvOverlay.src = '/logos/nvidia.svg';
+  nvOverlay.alt = 'NVIDIA';
+  nvOverlay.style.cssText = [
+    'position: absolute',
+    'object-fit: contain',
+    'object-position: center',
+    'pointer-events: none',
+    'border-radius: 50%'
+  ].join(';');
+  overlayLayer.appendChild(nvOverlay);
+
   function updateOverlayPositions() {
     const zoom = cy.zoom();
     cy.nodes('node[kind="partner"][?hasLogo]').forEach((node) => {
@@ -437,6 +434,19 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
       // Sync filter-out dimming
       img.style.opacity = node.hasClass('filtered-out') ? '0.06' : '1';
     });
+
+    // Position NVIDIA center overlay: 70% of node diameter, centered
+    const nvNode = cy.getElementById('nvidia');
+    if (nvNode) {
+      const pos = nvNode.renderedPosition();
+      const nodeDiam = nvNode.width() * zoom;   // 130 * zoom
+      const logoW = nodeDiam * 0.70;            // 70% of circle diameter
+      const logoH = logoW * (30 / 164);         // maintain 164:30 SVG aspect
+      nvOverlay.style.left = (pos.x - logoW / 2) + 'px';
+      nvOverlay.style.top  = (pos.y - logoH / 2) + 'px';
+      nvOverlay.style.width  = logoW + 'px';
+      nvOverlay.style.height = logoH + 'px';
+    }
   }
 
   // Initial paint
