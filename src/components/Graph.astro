@@ -181,7 +181,13 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
   const cy = cytoscape({
     container,
     elements: positionedElements,
-    layout: { name: 'preset' },
+    layout: { name: 'preset', fit: false },
+    zoom: 1,
+    pan: { x: 0, y: 0 },
+    userZoomingEnabled: false,
+    userPanningEnabled: false,
+    boxSelectionEnabled: false,
+    autoungrabify: true,
     minZoom: 0.4,
     maxZoom: 2.5,
     style: [
