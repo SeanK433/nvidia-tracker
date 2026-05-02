@@ -1,0 +1,98 @@
+---
+// src/components/MilestoneTimeline.astro
+// Renders a partner's full milestones list on the detail page,
+// chronologically (oldest first), with type label and source link.
+import type { Milestone } from '~/lib/schema';
+
+interface Props {
+  milestones: Milestone[];
+}
+
+const { milestones } = Astro.props;
+const sorted = [...milestones].sort((a, b) => a.date.localeCompare(b.date));
+---
+<ol class="ms-timeline">
+  {sorted.map((m) => (
+    <li class="ms-entry">
+      <div class="ms-meta">
+        <span class={`ms-type ms-type-${m.type}`}>{m.type.replace('-', ' ')}</span>
+        <time class="ms-date">{m.date}</time>
+      </div>
+      <div class="ms-headline">{m.headline}</div>
+      <p class="ms-description">{m.description}</p>
+      <a class="ms-link" href={m.url} rel="noopener noreferrer" target="_blank">
+        → {new URL(m.url).hostname}
+      </a>
+    </li>
+  ))}
+</ol>
+
+<style>
+.ms-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-left: 1px solid var(--ink-faint);
+}
+
+.ms-entry {
+  padding: var(--space-4) 0 var(--space-4) var(--space-5);
+  position: relative;
+}
+
+.ms-entry::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: var(--space-5);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.ms-meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-1);
+}
+
+.ms-type {
+  font-style: italic;
+  font-size: var(--size-xs);
+  color: var(--ink-muted);
+  text-transform: lowercase;
+  letter-spacing: 0.3px;
+}
+
+.ms-date {
+  font-style: italic;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--size-xs);
+}
+
+.ms-headline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--size-base);
+  color: var(--ink);
+  margin-bottom: var(--space-1);
+}
+
+.ms-description {
+  font-size: var(--size-sm);
+  color: var(--ink);
+  line-height: 1.5;
+  margin: var(--space-1) 0 var(--space-2);
+}
+
+.ms-link {
+  font-size: var(--size-xs);
+  font-style: italic;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+.ms-link:hover { color: var(--ink); }
+</style>
