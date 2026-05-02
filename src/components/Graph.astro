@@ -333,10 +333,26 @@ if (container && hoverCard && hoverLogo && hoverName && hoverMeta && hoverPurpos
     hoverMeta.textContent = `${data.category} · ${data.evidenceCount} confirmation${data.evidenceCount === 1 ? '' : 's'}`;
     hoverPurpose.textContent = data.purpose;
 
+    // Position the card so it doesn't open off-screen.
+    // Right third of canvas: open LEFT (card sits to the left of cursor).
+    // Bottom half of canvas: open UP (card's bottom anchors near cursor).
+    // Otherwise: open RIGHT and DOWN (default).
     const renderedPos = node.renderedPosition();
     const containerRect = container.getBoundingClientRect();
-    hoverCard.style.left = `${containerRect.left + renderedPos.x + 30}px`;
-    hoverCard.style.top = `${containerRect.top + renderedPos.y - 20}px`;
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
+    const cardW = hoverCard.offsetWidth;
+    const cardH = hoverCard.offsetHeight;
+    const openLeft = renderedPos.x > cw * (2 / 3);
+    const openUp = renderedPos.y > ch * 0.5;
+    const offsetX = 30;
+    const offsetY = 20;
+    hoverCard.style.left = openLeft
+      ? `${containerRect.left + renderedPos.x - cardW - offsetX}px`
+      : `${containerRect.left + renderedPos.x + offsetX}px`;
+    hoverCard.style.top = openUp
+      ? `${containerRect.top + renderedPos.y - cardH + offsetY}px`
+      : `${containerRect.top + renderedPos.y - offsetY}px`;
     hoverCard.dataset.visible = 'true';
   });
 
