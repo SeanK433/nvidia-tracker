@@ -6,29 +6,45 @@ import {
   groupByCategory,
   sortByPartner,
   sortByLastConfirmed,
+  sortByLatestMilestone,
   latestMilestone,
   recentMilestonesForHover
 } from '../src/lib/filters';
 import type { Relationship, Milestone } from '../src/lib/schema';
 
+const milestone = (date: string, type: Milestone['type'] = 'establishment'): Milestone => ({
+  date, type,
+  headline: 'h', description: 'd',
+  url: 'https://example.com'
+});
+
 const sample: Relationship[] = [
   {
     id: 'tsmc', partner: 'TSMC', category: 'silicon',
-    purpose: 'foundry', evidence_quote: 'q', evidence_url: 'https://e.com',
-    evidence_history: [], first_announced: '2020-01-01',
-    last_confirmed: '2026-04-15', status: 'active', confidence: 'high', notes: ''
+    purpose: 'foundry',
+    last_confirmed: '2026-04-15', status: 'active', confidence: 'high', notes: '',
+    significance_tier: 'core',
+    significance_narrative: 'Foundry partner.',
+    significance_reviewed_at: '2026-05-02',
+    milestones: [milestone('2020-01-01')]
   },
   {
     id: 'nebius', partner: 'Nebius', category: 'cloud',
-    purpose: 'gpu cloud', evidence_quote: 'q', evidence_url: 'https://e.com',
-    evidence_history: [], first_announced: '2024-01-01',
-    last_confirmed: '2026-03-10', status: 'active', confidence: 'medium', notes: ''
+    purpose: 'gpu cloud',
+    last_confirmed: '2026-03-10', status: 'active', confidence: 'medium', notes: '',
+    significance_tier: 'significant',
+    significance_narrative: 'GPU cloud platform.',
+    significance_reviewed_at: '2026-05-02',
+    milestones: [milestone('2024-01-01')]
   },
   {
     id: 'old-corp', partner: 'OldCorp', category: 'silicon',
-    purpose: 'historic', evidence_quote: 'q', evidence_url: 'https://e.com',
-    evidence_history: [], first_announced: '2018-01-01',
-    last_confirmed: '2024-01-01', status: 'dormant', confidence: 'low', notes: ''
+    purpose: 'historic',
+    last_confirmed: '2024-01-01', status: 'dormant', confidence: 'low', notes: '',
+    significance_tier: 'ancillary',
+    significance_narrative: 'Historic partner.',
+    significance_reviewed_at: '2026-05-02',
+    milestones: [milestone('2018-01-01')]
   }
 ];
 
@@ -71,6 +87,12 @@ describe('sortByPartner', () => {
 describe('sortByLastConfirmed', () => {
   it('sorts by last_confirmed descending (most recent first)', () => {
     expect(sortByLastConfirmed(sample).map(r => r.id)).toEqual(['tsmc', 'nebius', 'old-corp']);
+  });
+});
+
+describe('sortByLatestMilestone', () => {
+  it('sorts by each partner\'s most recent milestone date, newest first', () => {
+    expect(sortByLatestMilestone(sample).map(r => r.id)).toEqual(['nebius', 'tsmc', 'old-corp']);
   });
 });
 

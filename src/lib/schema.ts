@@ -13,11 +13,6 @@ export const StatusSchema = z.enum(['active', 'dormant', 'ended']);
 
 export const ConfidenceSchema = z.enum(['high', 'medium', 'low']);
 
-export const EvidenceEntrySchema = z.object({
-  url: z.string().url(),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'date must be YYYY-MM-DD')
-});
-
 export const MilestoneTypeSchema = z.enum([
   'establishment',
   'expansion',
@@ -45,20 +40,23 @@ export const RelationshipSchema = z.object({
   partner: z.string().min(1),
   category: CategorySchema,
   purpose: z.string().min(1),
-  evidence_quote: z.string().max(200),
-  evidence_url: z.string().url(),
-  evidence_history: z.array(EvidenceEntrySchema),
-  first_announced: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   last_confirmed: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   status: StatusSchema,
   confidence: ConfidenceSchema,
   notes: z.string(),
-  // New milestones + significance fields. OPTIONAL during Phase 1 migration;
-  // become REQUIRED after /seed-milestones runs and Phase 4 cleanup tightens the schema.
-  significance_tier: SignificanceTierSchema.optional(),
-  significance_narrative: z.string().min(1).max(280).optional(),
-  significance_reviewed_at: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-  milestones: z.array(MilestoneSchema).optional()
+  significance_tier: SignificanceTierSchema,
+  significance_narrative: z.string().min(1).max(280),
+  significance_reviewed_at: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  milestones: z.array(MilestoneSchema)
+    .min(1, 'every partner must have at least one milestone')
+    .refine(
+      arr => arr.filter(m => m.type === 'establishment').length === 1,
+      'must contain exactly one establishment milestone'
+    )
+    .refine(
+      arr => arr.every((m, i) => i === 0 || m.date >= arr[i - 1].date),
+      'milestones must be in chronological order (oldest first)'
+    )
 });
 
 export type Relationship = z.infer<typeof RelationshipSchema>;
