@@ -9,3 +9,7 @@ binding = "ASSETS"
 
 [observability]
 enabled = true
+
+[[routes]]
+pattern = "nvidia-tracker.seankel.com"
+custom_domain = true
