@@ -8,8 +8,8 @@
 
 A personal web dashboard tracking NVIDIA's public partnership ecosystem. The site visualizes ~28 named partnerships across 6 categories (silicon, interconnect, cloud, software, vertical, investment) as a graph with NVIDIA at the center.
 
-- **Live site:** https://nvidia-tracker.seanfkelley1.workers.dev
-- **GitHub repo:** https://github.com/SeanK433/nvidia-tracker
+- **Live site:** https://nvidia-tracker.seankel.com
+- **GitHub repo:** https://github.com/skelley-projects/nvidia-tracker
 - **Local working copy:** `C:\Users\skelley1\Claude Projects\nvidia-tracker`
 - **Owner:** Sean Kelley (`seanfkelley1@gmail.com`), beginner-level developer who prefers clear step-by-step explanations.
 
