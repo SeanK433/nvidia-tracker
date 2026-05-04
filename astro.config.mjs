@@ -6,7 +6,7 @@ export default defineConfig({
   adapter: cloudflare({
     platformProxy: { enabled: true }
   }),
-  site: 'https://nvidia-tracker.seanfkelley1.workers.dev',
+  site: 'https://nvidia-tracker.seankel.com',
   build: {
     assets: 'assets'
   },
